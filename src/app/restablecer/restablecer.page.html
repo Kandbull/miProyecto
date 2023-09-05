@@ -1,0 +1,42 @@
+
+<ion-content>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Oh no! Haz perdido tu contraseña?</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    Calma, si quieres recuperar el acceso a tu cuenta, yo te ayudaré
+    Primero dame tu correo electronico:
+  </ion-card-content>
+  <ion-item color="#012E55" lines="full">
+
+    <!-- NOMBRE USUARIO -->
+      <ion-input type="text" minlength="2" maxlength="50" placeholder="Ingrese su correo electronico"></ion-input>
+  </ion-item>
+
+  <ion-card-content>
+    Ahora, piensa en una nueva contraseña, aquí abajo escribela:
+  </ion-card-content>
+
+  <ion-item>
+    <ion-input type="password" minlength="4" placeholder="Ingrese su nueva contraseña"></ion-input>
+  </ion-item>
+
+  <ion-card-content>
+    Ya falta poco solo repite tu nueva contraseña:
+  </ion-card-content>
+
+  <ion-item>
+    <ion-input type="password" minlength="4" placeholder="Repita su nueva contraseña"></ion-input>
+  </ion-item>
+    
+      <ion-row>
+        <ion-col>
+          <!-- Restablecer contraseña -->
+          <ion-button expand="full" [routerLink]="['/login']">Recuperar contraseña</ion-button>
+        </ion-col>
+        
+      </ion-row>
+    </ion-card> 
+  </ion-content>
+

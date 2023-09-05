@@ -1,0 +1,61 @@
+<ion-content>
+  
+
+  <ion-card>
+    <!-- Para hacer espacio -->
+  </ion-card>
+  
+  <ion-card>
+    <!-- Para hacer espacio -->
+  </ion-card>
+
+  <ion-card>
+    <!-- Para hacer espacio -->
+  </ion-card>
+  
+  <ion-card>
+    <!-- Para hacer espacio -->
+  </ion-card>
+
+    <ion-card class="clock" >
+      <!-- <div class="hour-hand"></div>
+      <div class="minute-hand"></div>
+      <div class="second-hand"></div> -->
+      <div class="secmin"></div>
+
+    </ion-card>
+  
+    
+    <ion-content>
+    <ion-card>
+      
+      <ion-row>
+        
+      </ion-row>
+    
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Usuario</ion-label>
+          <ion-input type="text" [(ngModel)]="user.usuario" minlength="3" maxlength="8" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="ingresar()">
+              Ingresar</ion-button>
+              <ion-alert (didDismiss)="setOpen(false)"></ion-alert>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <a [routerLink]="['/restablecer']" style="color:aliceblue">Haz olvidado tu contraseña?¿</a>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+</ion-content>

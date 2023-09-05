@@ -1,0 +1,114 @@
+
+.fondo{
+    background-color: red;
+}
+
+ion-button{
+    --background: green;
+}
+
+ion-content{
+    --background: rgb(22, 21, 21);
+}
+
+ion-card{
+    --background: rgb(36, 36, 36);
+}
+
+
+// intento de loading
+
+.loader {
+    border: 8px solid #3498db;
+    border-top: 8px solid #f0f0f0;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+
+.hour-hand,
+.minute-hand,
+.second-hand {
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background-color: #943d3d;
+    top: 50%;
+    transform-origin: 100%;
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.hour-hand {
+    animation: rotate-hour 43200s linear infinite; /* 12 horas */
+}
+
+.minute-hand {
+    animation: rotate-minute 3600s linear infinite; /* 60 minutos */
+}
+
+.second-hand {
+    animation: rotate-second 60s linear infinite; /* 60 segundos */
+}
+
+// este lo hice yo y solo dura 10 segundos
+.secmin {
+    animation: rotate-hour 10s linear infinite;
+}
+
+
+.secmin {
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background-color: #943d3d;
+    top: 50%;
+    transform-origin: 100%;
+    transform: translateY(-50%) rotate(90deg);
+}
+
+
+
+
+
+
+@keyframes rotate-hour {
+    from {
+        transform: translateY(-50%) rotate(90deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(450deg);
+    }
+}
+
+@keyframes rotate-minute {
+    from {
+        transform: translateY(-50%) rotate(90deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(450deg);
+    }
+}
+
+@keyframes rotate-second {
+    from {
+        transform: translateY(-50%) rotate(90deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(450deg);
+    }
+}
