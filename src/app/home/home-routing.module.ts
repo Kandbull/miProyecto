@@ -1,11 +1,11 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
-import { CasaComponent } from '../componentes/casa/casa.component';
-import { NotificacionComponent } from '../componentes/notificacion/notificacion.component';
-import { CalendarioComponent } from '../componentes/calendario/calendario.component';
-import { MovilidadComponent } from '../componentes/movilidad/movilidad.component';
-import { AjustesComponent } from '../componentes/ajustes/ajustes.component';
+import { AlarmaComponent } from '../components/alarma/alarma.component';
+import { NotificacionComponent } from '../components/notificacion/notificacion.component';
+import { CalendarioComponent } from '../components/calendario/calendario.component';
+import { MovilidadComponent } from '../components/movilidad/movilidad.component';
+import { AjustesComponent } from '../components/ajustes/ajustes.component';
 
 const routes: Routes = [
   {
@@ -13,8 +13,8 @@ const routes: Routes = [
     component: HomePage,
     children:[
       {
-        path:'casa',
-        component: CasaComponent
+        path:'alarma',
+        component: AlarmaComponent
       },
       {
         path: 'notificacion',
