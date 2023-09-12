@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'settings',
     pathMatch: 'full'
   },
   {
@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'alarma',
     loadChildren: () => import('./tabs/alarma/alarma.module').then( m => m.AlarmaPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./tabs/settings/settings.module').then( m => m.SettingsPageModule)
   },
 ];
 
