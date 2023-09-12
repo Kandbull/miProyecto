@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'settings',
+    redirectTo: 'calendar',
     pathMatch: 'full'
   },
   {
@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./tabs/settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./tabs/calendar/calendar.module').then( m => m.CalendarPageModule)
   },
 ];
 
