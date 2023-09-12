@@ -7,6 +7,7 @@ import { CalendarioComponent } from '../components/calendario/calendario.compone
 import { MovilidadComponent } from '../components/movilidad/movilidad.component';
 import { AjustesComponent } from '../components/ajustes/ajustes.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,11 @@ const routes: Routes = [
       {
         path:'alarma',
         component: AlarmaComponent
+      },
+      {
+        path:'alarma',
+        loadChildren: () => import('src/app/tabs/alarma/alarma-routing.module').then( m => m.AlarmaPageRoutingModule)
+        
       },
       {
         path: 'notificacion',
@@ -41,3 +47,26 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class HomePageRoutingModule {}
+
+
+
+
+
+/**
+ * {
+        path:'alarma',
+        loadChildren: () => import('src/app/tabs/alarma/alarma-routing.module').then( m => m.AlarmaPageRoutingModule)
+      },
+      {
+        path:'',
+        redirectTo: '/tabs/alarma',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
+    path:'',
+    redirectTo: '/tabs/alarma',
+    pathMatch: 'full'
+  }
+ */
