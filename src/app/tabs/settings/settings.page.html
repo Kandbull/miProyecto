@@ -22,5 +22,16 @@
     <ion-item>
       <h1>hola mundo otra vez</h1>
     </ion-item>
+    <ion-item>
+      
+    </ion-item>
+    <ion-toggle [checked]="true">Dark mode</ion-toggle>
+    <ion-list>
+      <ion-item lines="full">
+        <ion-icon slot="start" name="moon"></ion-icon>
+        <ion-label>Dark Theme</ion-label>
+        <ion-toggle id="themeToggle" slot="end"></ion-toggle>
+      </ion-item>
+    </ion-list>
   </ion-card-content>
 </ion-content>
