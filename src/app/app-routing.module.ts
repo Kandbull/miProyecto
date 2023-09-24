@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'calendar',
     loadChildren: () => import('./tabs/calendar/calendar.module').then( m => m.CalendarPageModule)
   },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },
 ];
 
 @NgModule({

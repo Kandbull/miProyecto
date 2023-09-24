@@ -22,6 +22,9 @@ export class LoginPage implements OnInit {
     password:'',
     
   }
+
+
+
   greenflag: string="";
   constructor(private router: Router,
               public toastController: ToastController) 

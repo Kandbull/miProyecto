@@ -45,17 +45,17 @@
 
       
       <!-- Tabs -->
-      <ion-tabs value="alarma">
+      <ion-tabs (ionChange)="tabChanged($event)">
         <ion-tab-bar slot="bottom">
           <ion-tab-button tab="alarma">
             <ion-icon name="alarm-outline"></ion-icon>
             <!-- home -->
           </ion-tab-button>
-          <ion-tab-button tab="movilidad">
+          <ion-tab-button tab="camera">
             <ion-icon name="location-outline"></ion-icon>
             <!-- Movil -->
           </ion-tab-button>
-          <ion-tab-button tab="calendario">
+          <ion-tab-button tab="perfil">
             <ion-icon name="calendar-number-outline"></ion-icon>
             <!-- Calendario -->
           </ion-tab-button>
