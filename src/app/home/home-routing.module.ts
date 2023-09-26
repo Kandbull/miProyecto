@@ -1,7 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
-import { AlarmaComponent } from '../components/alarma/alarma.component';
 
 
 const routes: Routes = [
@@ -10,24 +9,16 @@ const routes: Routes = [
     component: HomePage,
     children:[
       {
-        path:'alarma',
-        component: AlarmaComponent
-        
+        path:'camera',
+        loadChildren: () => import('src/app/tabs/camera/camera-routing.module').then(m => m.CameraPageRoutingModule)
       },
       {
-        path:'camera',
-        component: AlarmaComponent
-        
+        path:'galeria',
+        loadChildren: () => import('src/app/tabs/galeria/galeria-routing.module').then(m => m.GaleriaPageRoutingModule)
       },
       {
         path:'perfil',
-        component: AlarmaComponent
-        
-      },
-
-      {
-        path: 'settings',
-        loadChildren: () => import('src/app/tabs/settings/settings-routing.module').then( m => m.SettingsPageRoutingModule)
+        loadChildren: () => import('src/app/tabs/perfil/perfil-routing.module').then(m => m.PerfilPageRoutingModule)
       }
     ]
   }

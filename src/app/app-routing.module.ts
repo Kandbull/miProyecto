@@ -20,20 +20,24 @@ const routes: Routes = [
     loadChildren: () => import('./restablecer/restablecer.module').then( m => m.RestablecerPageModule)
   },
   {
-    path: 'alarma',
-    loadChildren: () => import('./tabs/alarma/alarma.module').then( m => m.AlarmaPageModule)
-  },
-  {
     path: 'settings',
     loadChildren: () => import('./tabs/settings/settings.module').then( m => m.SettingsPageModule)
   },
-  {
-    path: 'calendar',
-    loadChildren: () => import('./tabs/calendar/calendar.module').then( m => m.CalendarPageModule)
-  },
-  {
+  /**{
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },**/
+  {
+    path: 'camera',
+    loadChildren: () => import('./tabs/camera/camera.module').then( m => m.CameraPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./tabs/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'galeria',
+    loadChildren: () => import('./tabs/galeria/galeria.module').then( m => m.GaleriaPageModule)
   },
 ];
 

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AlarmaPageRoutingModule } from './alarma-routing.module';
+import { PerfilPageRoutingModule } from './perfil-routing.module';
 
-import { AlarmaPage } from './alarma.page';
+import { PerfilPage } from './perfil.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AlarmaPageRoutingModule
+    PerfilPageRoutingModule
   ],
-  declarations: [AlarmaPage]
+  declarations: [PerfilPage]
 })
-export class AlarmaPageModule {}
+export class PerfilPageModule {}
