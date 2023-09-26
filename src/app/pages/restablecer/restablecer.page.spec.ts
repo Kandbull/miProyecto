@@ -5,7 +5,7 @@ describe('RestablecerPage', () => {
   let component: RestablecerPage;
   let fixture: ComponentFixture<RestablecerPage>;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     fixture = TestBed.createComponent(RestablecerPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
