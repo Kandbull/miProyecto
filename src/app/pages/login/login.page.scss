@@ -5,11 +5,18 @@ ion-button{
 }
 
 ion-content{
-    --background: rgb(22, 21, 21);
+   //degradado de colores
+   //--background: linear-gradient(rgb(213, 101, 10), rgba(236, 179, 7, 0.907));
+   // Se puede hacer de varios colores OMG!
+   --background: linear-gradient(rgb(213, 101, 10), rgba(236, 179, 7, 0.907), rgba(236, 118, 7, 0.907));
 }
 
 ion-card{
-    --background: rgb(36, 36, 36);
+    --background: linear-gradient(rgb(108, 108, 108), rgb(36, 36, 36));
+}
+
+a{
+    color: #ffffff;
 }
 
 

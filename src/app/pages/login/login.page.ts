@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
           user: this.user //Al state le asigno un objeto con clave valor, lo vere despues
         }
       }
-      this.router.navigate(['/home'],navigationextras);
+      this.router.navigate(['/home/camera'],navigationextras);
     }else{
       this.presentToast("bottom","Falta "+this.greenflag,4000);
     }
