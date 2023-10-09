@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-registrar',
@@ -7,7 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrarPage implements OnInit {
 
-  constructor() { }
+  correoRegistro = "";
+  usuarioRegistro = "";
+  passwordRegistro = "";
+
+  constructor(private dbservice: DbserviceService, private router: Router) { }
+
+  guardarUsuario(){
+    this.dbservice.addUsuario(this.correoRegistro, this.usuarioRegistro, this.passwordRegistro);
+    this.dbservice.presentToast("Usuario Agregado");
+    this.router.navigate(['/login']);
+  }
+
 
   ngOnInit() {
   }

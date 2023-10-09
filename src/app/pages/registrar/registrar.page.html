@@ -17,7 +17,7 @@
   </ion-card-content>
 
   <!--  -->
-  <!-- <ion-card> -->
+  <ion-card>
     <ion-card-content>
       <h1 position="top">Bienvenido!</h1>
       <ion-item>
@@ -33,7 +33,7 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-input type="email" placeholder="Escribe aqui"></ion-input>
+          <ion-input type="email" placeholder="Escribe aqui" [(ngModel)]="correoRegistro"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -43,7 +43,7 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-input placeholder="Escribe aqui"></ion-input>
+          <ion-input placeholder="Escribe aqui" [(ngModel)]="usuarioRegistro"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -53,7 +53,7 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-input type="password" placeholder="Escribe aqui"></ion-input>
+          <ion-input type="password" placeholder="Escribe aqui" [(ngModel)]="passwordRegistro"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -63,16 +63,16 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-input type="password" placeholder="Escribe aqui"></ion-input>
+          <ion-input type="password" placeholder="Escribe aqui" [(ngModel)]="passwordRegistro"></ion-input>
         </ion-col>
       </ion-row>
     </ion-card-content>
 
-  <!-- </ion-card> -->
+  </ion-card>
 
   
   <ion-card-content>
-    <ion-button expand="block" [routerLink]="['/login']">Registrar</ion-button>
+    <ion-button expand="block" (click)="guardarUsuario()">Registrar</ion-button>
   </ion-card-content>
   
 
