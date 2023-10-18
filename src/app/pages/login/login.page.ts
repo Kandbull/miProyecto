@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 //import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
@@ -23,11 +24,15 @@ export class LoginPage implements OnInit {
     
   }
 
+  usuarioLogin="";
+  passwordLogin="";
+
 
 
   greenflag: string="";
   constructor(private router: Router,
-              public toastController: ToastController) 
+              public toastController: ToastController,
+              private dbservice: DbserviceService) 
               { }
 
   ngOnInit() {
@@ -55,6 +60,18 @@ export class LoginPage implements OnInit {
     }
     
   }
+
+  /** 
+  ingresoValido(){
+    if(){
+      this.dbservice.cargarUsuario(this.usuarioLogin,this.passwordLogin);
+    }
+  }
+  */
+  
+
+
+
   // intento de hacer un alert con forma de loading
   isAlertOpen = false;
   
