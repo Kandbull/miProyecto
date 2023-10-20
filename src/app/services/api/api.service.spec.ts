@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BdLocalService } from './bd-local.service';
+import { ApiService } from './api.service';
 
-describe('BdLocalService', () => {
-  let service: BdLocalService;
+describe('ApiService', () => {
+  let service: ApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BdLocalService);
+    service = TestBed.inject(ApiService);
   });
 
   it('should be created', () => {

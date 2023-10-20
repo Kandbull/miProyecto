@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { Registro } from '../interfaces/registro';
+import { Registro } from '../../interfaces/registro';
 
 @Injectable({
   providedIn: 'root'

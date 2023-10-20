@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -21,23 +21,15 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('./tabs/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
   },
   /**{
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },**/
   {
-    path: 'camera',
-    loadChildren: () => import('./tabs/camera/camera.module').then( m => m.CameraPageModule)
-  },
-  {
     path: 'perfil',
-    loadChildren: () => import('./tabs/perfil/perfil.module').then( m => m.PerfilPageModule)
-  },
-  {
-    path: 'galeria',
-    loadChildren: () => import('./tabs/galeria/galeria.module').then( m => m.GaleriaPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
     path: 'registrar',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice.service';
+import { DbserviceService } from 'src/app/services/dbservice/dbservice.service';
 //import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DbserviceService } from 'src/app/services/dbservice.service';
+import { DbserviceService } from 'src/app/services/dbservice/dbservice.service';
 
 @Component({
   selector: 'app-registrar',

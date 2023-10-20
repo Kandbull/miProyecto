@@ -36,3 +36,6 @@ ion-menu::part(container) {
   box-shadow: 4px 0px 16px rgba(255, 0, 255, 0.18);
 }
 
+ion-content{
+  --background: linear-gradient(rgb(62, 14, 110), rgb(22, 13, 117));
+}
