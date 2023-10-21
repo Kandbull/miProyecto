@@ -47,6 +47,12 @@
             <ion-item>
               <ion-input label="Edad del personaje: " placeholder="Escriba aquí" type="number"></ion-input>
             </ion-item>
+            <ion-item>
+              <ion-select placeholder="Seleccione poder">
+                <!-- <ion-select-option *ngFor="let pers of personajes" [value]="pers">{{pers.tipo}}</ion-select-option> -->
+              </ion-select>
+            </ion-item>
+            
           </ion-list>
         </ion-card-content>
         <ion-card-content>
@@ -59,7 +65,7 @@
       </ion-card>
       <ion-card>
         <ion-card-content>
-         <ion-button expand="block">Ingresar</ion-button> 
+         <ion-button expand="block">Crear</ion-button> 
         </ion-card-content>
         
         <ion-card-content>

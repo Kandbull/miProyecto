@@ -1,4 +1,4 @@
-export interface Personaj{
+export interface Personaje{
     id: number | undefined;
     nombre: string | undefined;
     edad: number | undefined;

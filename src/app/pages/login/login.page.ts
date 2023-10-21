@@ -20,12 +20,12 @@ export class LoginPage implements OnInit {
    */
   user={
     usuario:"",
-    password:'',
+    password:''
     
   }
 
-  usuarioLogin="";
-  passwordLogin="";
+  usuarioLogin= "";
+  passwordLogin= "";
 
 
 
@@ -54,20 +54,26 @@ export class LoginPage implements OnInit {
           user: this.user //Al state le asigno un objeto con clave valor, lo vere despues
         }
       }
-      this.router.navigate(['/home/camera'],navigationextras);
+      this.router.navigate(['/home'],navigationextras);
     }else{
       this.presentToast("bottom","Falta "+this.greenflag,4000);
     }
     
   }
 
-  /** 
   ingresoValido(){
-    if(){
-      this.dbservice.cargarUsuario(this.usuarioLogin,this.passwordLogin);
+    if(this.usuarioLogin == ""){
+      this.dbservice.presentToast("Falta Usuario");
+      return;
+    }if(this.passwordLogin == ""){
+      this.dbservice.presentToast("Falta Contraseña");
+      return;
+    }else{
+    this.dbservice.verificarUsuario(this.usuarioLogin, this.passwordLogin);
+    this.dbservice.presentToast("Sesion Iniciada correctamente");
+    this.router.navigate(['/home']);
     }
   }
-  */
   
 
 

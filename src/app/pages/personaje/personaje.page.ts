@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-personaje',
@@ -7,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonajePage implements OnInit {
 
-  constructor() { }
+  personajes:any; 
+
+  constructor(private apiService: ApiService) {
+    this.getPersonajeList();
+   }
+
+  getPersonajeList(){
+    this.apiService.getPersonajeList().subscribe((data) =>{
+      console.log(data);
+      this.personajes = data;
+    })
+  }
 
   ngOnInit() {
   }
+
 
   confirm(){
 
@@ -18,6 +31,22 @@ export class PersonajePage implements OnInit {
 
   cancel(){
     
+  }
+
+  
+  
+  /** ={
+    idPersonaje: null,
+    nombrePersonaje: "",
+    edadPersonaje: null,
+    habilidadPersonaje: null,
+    historiaPersonaje: ""
+  }*/
+
+
+  crearPersonaje(){
+    console.log('aqui se crea algo');
+
   }
 
 }

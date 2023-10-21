@@ -78,6 +78,11 @@ export class DbserviceService {
     data);
     this.cargarUsuario();
   }
+  async verificarUsuario(usuario: any, password: any){
+    let data = [usuario, password];
+    this.cargarUsuario();
+  }
+
 
   async updateUsuario(id: any, correo: any, usuario: any, password: any){
     let data = [usuario, password, id, correo];

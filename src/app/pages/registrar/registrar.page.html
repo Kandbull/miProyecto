@@ -57,22 +57,13 @@
         </ion-col>
       </ion-row>
 
-      <!-- Contraseña n2 -->
-      <ion-item>
-        Repite tu contraseña
-      </ion-item>
-      <ion-row>
-        <ion-col>
-          <ion-input type="password" placeholder="Escribe aqui" [(ngModel)]="passwordRegistro"></ion-input>
-        </ion-col>
-      </ion-row>
     </ion-card-content>
 
   </ion-card>
 
   
   <ion-card-content>
-    <ion-button expand="block" (click)="guardarUsuario()">Registrar</ion-button>
+    <ion-button expand="block" (click)="comprobarRegistro()">Registrar</ion-button>
   </ion-card-content>
   
 
