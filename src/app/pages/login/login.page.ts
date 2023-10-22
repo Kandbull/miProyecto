@@ -69,11 +69,18 @@ export class LoginPage implements OnInit {
       this.dbservice.presentToast("Falta Contraseña");
       return;
     }else{
-    this.dbservice.verificarUsuario(this.usuarioLogin, this.passwordLogin);
-    this.dbservice.presentToast("Sesion Iniciada correctamente");
-    this.router.navigate(['/home']);
+      this.dbservice.verificarUsuario(this.usuarioLogin);
+      this.dbservice.presentToast("Sesion Iniciada correctamente");
+      this.router.navigate(['/home']);
     }
   }
+
+  /** 
+   this.dbservice.verificarUsuario(this.usuarioLogin);
+    this.dbservice.presentToast("Sesion Iniciada correctamente");
+    this.router.navigate(['/home']);
+   
+  */
   
 
 

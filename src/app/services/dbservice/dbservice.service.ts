@@ -74,15 +74,20 @@ export class DbserviceService {
 
   async addUsuario(correo: any, usuario: any, password: any){
     let data = [correo, usuario, password];
-    await this.dataBase.executeSql('INSERT INTO user(correo, usuario, password) VALUES(?,?,?)',
+    await this.dataBase.executeSql('INSERT INTO registro(correo, usuario, password) VALUES(?,?,?)',
     data);
     this.cargarUsuario();
   }
-  async verificarUsuario(usuario: any, password: any){
-    let data = [usuario, password];
+  async verificarUsuario(usuario: any){
+    let data = [usuario];
     this.cargarUsuario();
   }
-
+  /** 
+  async verificarPassword(password: any){
+    let data = [password];
+    let.cargarUsuario();
+  }
+  */
 
   async updateUsuario(id: any, correo: any, usuario: any, password: any){
     let data = [usuario, password, id, correo];
