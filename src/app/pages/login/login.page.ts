@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice/dbservice.service';
+import { LoginserviceService } from 'src/app/services/login/loginservice.service';
 //import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
@@ -24,22 +25,33 @@ export class LoginPage implements OnInit {
     
   }
 
+  
   usuarioLogin= "";
   passwordLogin= "";
 
-
+  usuarios=[]
 
   greenflag: string="";
   constructor(private router: Router,
               public toastController: ToastController,
+              private loginservice: LoginserviceService,
               private dbservice: DbserviceService) 
               { }
 
   ngOnInit() {
+    /***this.loginservice.getUsuarios().subscribe((resp) => {
+      Object.values(resp).forEach((usuario) => {
+        this.usuarios.push(...usuario)
+        console.log(this.usuarios)
+      })
+    })*/
   }
 
-  buscaUsuario= {}
-  buscaPass={}
+  ingreso(){
+    this.loginservice.getUsuario(this.usuarioLogin, this.passwordLogin);
+  }
+
+
 
   ingresar(){
     console.log(this.user)
@@ -60,7 +72,7 @@ export class LoginPage implements OnInit {
     }
     
   }
-
+  // este ingreso que estoy usando ahora mismo
   ingresoValido(){
     if(this.usuarioLogin == ""){
       this.dbservice.presentToast("Falta Usuario");
@@ -69,7 +81,7 @@ export class LoginPage implements OnInit {
       this.dbservice.presentToast("Falta Contraseña");
       return;
     }else{
-      this.dbservice.verificarUsuario(this.usuarioLogin);
+      this.loginservice.getUsuario(this.usuarioLogin, this.passwordLogin);
       this.dbservice.presentToast("Sesion Iniciada correctamente");
       this.router.navigate(['/home']);
     }

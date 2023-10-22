@@ -1,6 +1,6 @@
 export interface Registro {
     id: number | undefined;
-    correo: string | undefined;
-    usuario: string | undefined;
+    nombre: string | undefined;
+    username: string | undefined;
     password: number | undefined;
 }

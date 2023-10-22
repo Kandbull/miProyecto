@@ -62,8 +62,8 @@ export class DbserviceService {
           for (let i = 0; i < res.rows.length; i++) {
             items.push({
               id: res.rows.item(i).id,
-              correo: res.rows.item(i).correo,
-              usuario: res.rows.item(i).usuario,
+              nombre: res.rows.item(i).nombre,
+              username: res.rows.item(i).username,
               password: res.rows.item(i).password
             });
           }
