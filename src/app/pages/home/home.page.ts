@@ -10,14 +10,6 @@ export class HomePage {
 
 
   constructor(private router: Router) {
-    this.router.navigate(['/home/alarma']);
+    
   }
-
-  tabChanged($event: any){
-    console.log("Hola")
-    console.log($event);
-    let direccion = $event.detail.value;
-    this.router.navigate(['/home/'+direccion]);
-  }
-
 }
