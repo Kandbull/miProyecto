@@ -15,26 +15,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class HomePageRoutingModule {}
-
-
-
-
-
-/**
- * {
-        path:'alarma',
-        loadChildren: () => import('src/app/tabs/alarma/alarma-routing.module').then( m => m.AlarmaPageRoutingModule)
-      },
-      {
-        path:'',
-        redirectTo: '/tabs/alarma',
-        pathMatch: 'full'
-      }
-    ]
-  },
-  {
-    path:'',
-    redirectTo: '/tabs/alarma',
-    pathMatch: 'full'
-  }
- */
