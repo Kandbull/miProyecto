@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastOptions } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice/dbservice.service';
+import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
 
 @Component({
   selector: 'app-registrar',

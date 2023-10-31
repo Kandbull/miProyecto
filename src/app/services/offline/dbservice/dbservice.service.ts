@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { Registro } from '../../interfaces/registro';
+import { Registro } from '../../../interfaces/registro';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class DbserviceService {
 
   public dataBase!: SQLiteObject;
 
-  tablaRegistro: string = "CREATE TABLE IF NOT EXISTS noticia(id INTEGER PRIMARY KEY autoincrement, correo VARCHAR(25) NOT NULL, usuario VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL);";
+  tablaRegistro: string = "CREATE TABLE IF NOT EXISTS registro(id INTEGER PRIMARY KEY autoincrement, correo VARCHAR(25) NOT NULL, usuario VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL);";
 
   listaRegistro = new BehaviorSubject<Registro[]>([]);
 

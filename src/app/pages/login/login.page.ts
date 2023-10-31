@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice/dbservice.service';
-import { LoginserviceService } from 'src/app/services/login/loginservice.service';
+import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
+//import { LoginserviceService } from 'src/app/services/login/loginservice.service';
 //import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
   greenflag: string="";
   constructor(private router: Router,
               public toastController: ToastController,
-              private loginservice: LoginserviceService,
+              //private loginservice: LoginserviceService,
               private dbservice: DbserviceService) 
               { }
 
@@ -48,9 +48,6 @@ export class LoginPage implements OnInit {
     })*/
   }
 
-  ingreso(){
-    this.loginservice.getUsuario(this.usuarioLogin, this.passwordLogin);
-  }
 
 
 
@@ -82,7 +79,7 @@ export class LoginPage implements OnInit {
       this.dbservice.presentToast("Falta Contraseña");
       return;
     }else{
-      this.loginservice.getUsuario(this.usuarioLogin, this.passwordLogin);
+      //this.loginservice.getUsuario(this.usuarioLogin, this.passwordLogin);
       this.dbservice.presentToast("Sesion Iniciada correctamente");
       this.router.navigate(['/home']);
     }
