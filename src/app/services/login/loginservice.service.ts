@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, of, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { Registro } from 'src/app/interfaces/registro';
+import { Usuario } from 'src/app/interfaces/registro';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,13 @@ export class LoginserviceService {
     headers: new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin' :'*'
-   }),
+   })
   };
   constructor(private http: HttpClient) { }
+
+  getUser(){
+    return this.http.get(this.URL)
+  }
 
   getUsuario(username: any, password:any){
     return this.http.get(this.URL);
@@ -26,13 +30,23 @@ export class LoginserviceService {
   getSoloUsuario(username: any){
     return this.http.get(this.URL);
   }
-
+  /**
+  
+  
   getUsuarios(id: any): Observable<Registro[]> {
-    return this.http.get<Registro[]>(`${this.URL}/users/` + id).pipe(
+    return this.http.get<Registro[]>(`${this.URL}` + id).pipe(
       tap((_) => console.log(`Registro fetched: ${id}`)),
       catchError(this.handleError<Registro[]>(`Get registro id=${id}`))
     );
   }
+
+  getUsersList(): Observable<Registro[]> {
+    return this.http.get<Registro[]>(`${this.URL}`).pipe(
+      tap((registro) => console.log('Registro fetched!')),
+      catchError(this.handleError<Registro[]>('Get registro', []))
+    );
+  } */
+
   /***
   updatePost(id: any, registro: Registro): Observable<any> {
     return this.http.put(`${URL}/posts/` + id,registro, this.httpHeader).pipe(

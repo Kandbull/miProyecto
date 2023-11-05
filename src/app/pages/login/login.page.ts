@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
 //import { LoginserviceService } from 'src/app/services/login/loginservice.service';
-//import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 @Component({
   selector: 'app-login',
@@ -30,14 +30,18 @@ export class LoginPage implements OnInit {
   usuarioLogin= "";
   passwordLogin= "";
 
-  usuarios=[]
+  usuarios:any;
+
+  loading: any;
 
   greenflag: string="";
   constructor(private router: Router,
               public toastController: ToastController,
               //private loginservice: LoginserviceService,
-              private dbservice: DbserviceService) 
-              { }
+              private dbservice: DbserviceService,
+              public loadingController: LoadingController) 
+              {// this.getUsuariostList();
+              }
 
   ngOnInit() {
     /***this.loginservice.getUsuarios().subscribe((resp) => {
@@ -47,6 +51,15 @@ export class LoginPage implements OnInit {
       })
     })*/
   }
+  /**
+   * 
+   
+  getUsuariostList() {
+    this.loginservice.getUsersList().subscribe((data) => {
+      console.log(data);
+      this.usuarios = data;
+    });
+  }*/
 
 
 
@@ -55,7 +68,7 @@ export class LoginPage implements OnInit {
     console.log(this.user)
     if (this.validateModel(this.user)) {
       this.presentToast("top", "Bienvenido "+this.user.usuario);
-      this.isLoading = true;
+      //this.isLoading = true;
       this.setOpen;
       // Los navigationExtras es la declaracion e instancia de un elemento
       // o parametro, para la otra página
@@ -151,17 +164,15 @@ export class LoginPage implements OnInit {
   }
 
 
-  isLoading = false;
-
-  startLoading() {
-    this.isLoading = true;
-
-    // Simular una operación de carga 
-    setTimeout(() => {
-      this.isLoading = false;
-      // Simularemos una carga de 3 segundos
-    }, 3000); 
-  }
+  async presentLoading() {
+		this.loading = await this.loadingController.create({
+		  cssClass: 'my-custom-class',
+		  message: 'Guardando...'
+		});
+		await this.loading.present();
+	  //await loading.onDidDismiss();
+		//console.log('Loading dismissed!');
+	  }
 
 
 

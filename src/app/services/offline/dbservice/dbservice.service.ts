@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { Registro } from '../../../interfaces/registro';
+import { Usuario } from '../../../interfaces/registro';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class DbserviceService {
 
   public dataBase!: SQLiteObject;
 
-  tablaRegistro: string = "CREATE TABLE IF NOT EXISTS registro(id INTEGER PRIMARY KEY autoincrement, correo VARCHAR(25) NOT NULL, usuario VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL);";
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(id INTEGER PRIMARY KEY autoincrement, correo VARCHAR(25) NOT NULL, usuario VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL);";
 
-  listaRegistro = new BehaviorSubject<Registro[]>([]);
+  listaUsuario = new BehaviorSubject<Usuario[]>([]);
 
   private isDbReady:
     BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -26,12 +26,12 @@ export class DbserviceService {
       this.crearBD();
      }
 
-
+     //Registro
 
   crearBD() {
     this.plataform.ready().then(() => {
       this.sqlite.create({
-        name: 'registro.db',
+        name: 'usuario.db',
         location: 'default'
     }).then((db: SQLiteObject) => {   
       this.dataBase = db;
@@ -44,7 +44,7 @@ export class DbserviceService {
 
   async crearTablas(){
     try{
-      await this.dataBase.executeSql(this.tablaRegistro, []);
+      await this.dataBase.executeSql(this.tablaUsuario, []);
       this.presentToast("Tabla creada");
       //this.cargarUsuario();
       this.isDbReady.next(true);
@@ -55,8 +55,8 @@ export class DbserviceService {
   }
 
   cargarUsuario() {
-    let items: Registro[] = [];
-    this.dataBase.executeSql('SELECT * FROM registro', []).then(
+    let items: Usuario[] = [];
+    this.dataBase.executeSql('SELECT * FROM usuario', []).then(
       res => {
         if (res.rows.length > 0) {
           for (let i = 0; i < res.rows.length; i++) {
@@ -69,12 +69,12 @@ export class DbserviceService {
           }
         }
       });
-      this.listaRegistro.next(items);
+      this.listaUsuario.next(items);
   }
 
   async addUsuario(correo: any, usuario: any, password: any){
     let data = [correo, usuario, password];
-    await this.dataBase.executeSql('INSERT INTO registro(correo, usuario, password) VALUES(?,?,?)',
+    await this.dataBase.executeSql('INSERT INTO usuario(correo, usuario, password) VALUES(?,?,?)',
     data);
     this.cargarUsuario();
   }
@@ -91,12 +91,12 @@ export class DbserviceService {
 
   async updateUsuario(id: any, correo: any, usuario: any, password: any){
     let data = [usuario, password, id, correo];
-    await this.dataBase.executeSql('UPDATE registro SET usuario=?, password=? WHERE id=?, correo=?', data);
+    await this.dataBase.executeSql('UPDATE usuario SET usuario=?, password=? WHERE id=?, correo=?', data);
     this.cargarUsuario();
   }
 
   async deleteUsuario(id: any) {
-    await this.dataBase.executeSql('DELETE FROM registro WHERE id=?', [id]);
+    await this.dataBase.executeSql('DELETE FROM usuario WHERE id=?', [id]);
     this.cargarUsuario();
   }
 

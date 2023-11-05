@@ -16,8 +16,23 @@ export class FirebaseService {
 
   getCollection(){
     console.log('aqui estoy leyendo una coleccion');
-    this.firestore.collection('usuario').get().subscribe( (res) => {
+    this.firestore.collection('usuario').get().subscribe( (respuesta) => {
 
     });
   }
+
+  crearUsuario(data: any, path: string, id: string | undefined){
+    const collection = this.firestore.collection(path);
+    return collection.doc(id).set(data);
+  }
+
+  getId(){
+    return this.firestore.createId();
+  }
+
+
+
+
+
+
 }
