@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
 //import { LoginserviceService } from 'src/app/services/login/loginservice.service';
-
+import { Usuario } from 'src/app/interfaces/registro';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,15 @@ export class LoginPage implements OnInit {
   usuarioLogin= "";
   passwordLogin= "";
 
+  newUsuario: Usuario = {
+    id: this.firebase.getId(),
+    nombre: '',
+    username: "",
+    password: 0
+  };
+
+  private path = '/usuario';
+
   usuarios:any;
 
   loading: any;
@@ -39,6 +49,7 @@ export class LoginPage implements OnInit {
               public toastController: ToastController,
               //private loginservice: LoginserviceService,
               private dbservice: DbserviceService,
+              private firebase: FirebaseService,
               public loadingController: LoadingController) 
               {// this.getUsuariostList();
               }
@@ -83,6 +94,8 @@ export class LoginPage implements OnInit {
     }
     
   }
+  num =  0;
+  nam = 0;
   // este ingreso que estoy usando ahora mismo
   ingresoValido(){
     if(this.usuarioLogin == ""){
@@ -93,9 +106,18 @@ export class LoginPage implements OnInit {
       return;
     }else{
       //this.loginservice.getUsuario(this.usuarioLogin, this.passwordLogin);
+      //this.firebase.getUsuario(this.path, this.usuarioLogin);
       this.dbservice.presentToast("Sesion Iniciada correctamente");
+      //console.log(this.nam);
       this.router.navigate(['/home']);
+      
     }
+  }
+
+  // Metodo de prueba para el login con firebase
+  
+  validarIngreso(){
+    this.firebase.getUsuario(this.path, this.usuarioLogin);
   }
 
   /** 

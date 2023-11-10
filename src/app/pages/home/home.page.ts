@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+//import { MenuComponent } from 'src/app/components/menu/menu.component';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class HomePage {
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    //private menuSide: MenuComponent
+    ) {
     
   }
 }

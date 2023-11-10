@@ -1,25 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api/api.service';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+//import { ApiService } from 'src/app/services/api/api.service';
+
+
 
 @Component({
-  selector: 'app-personaje',
-  templateUrl: './personaje.page.html',
-  styleUrls: ['./personaje.page.scss'],
+  selector: 'app-crear',
+  templateUrl: './crear.page.html',
+  styleUrls: ['./crear.page.scss'],
 })
-export class PersonajePage implements OnInit {
+export class CrearPage implements OnInit {
+
+  constructor(
+
+    //private apiService: ApiService,
+    private firebase: FirebaseService
+  ) { }
 
   personajes:any; 
 
-  constructor(private apiService: ApiService) {
-    this.getPersonajeList();
-   }
-
+  
+  /** 
   getPersonajeList(){
     this.apiService.getPersonajeList().subscribe((data) =>{
       console.log(data);
       this.personajes = data;
     })
   }
+  */
 
   ngOnInit() {
   }
@@ -48,5 +56,7 @@ export class PersonajePage implements OnInit {
     console.log('aqui se crea algo');
 
   }
+ 
+
 
 }
