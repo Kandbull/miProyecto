@@ -3,7 +3,7 @@
     <!-- Side Menu -->
     <ion-menu contentId="main-content">
       
-      <!-- <ion-header>
+      <ion-header>
         <ion-toolbar color="secundary">
           <ion-title>Menu</ion-title>
         </ion-toolbar>
@@ -13,10 +13,10 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item [routerLink]="['/home']">Inicio</ion-item>
             <ion-item [routerLink]="['/perfil']">Perfil</ion-item>
-            <ion-item [routerLink]="['/personaje']">Personaje</ion-item>
+            <ion-item [routerLink]="['/crear']">Crear</ion-item>
           </ion-menu-toggle>
         </ion-list>
-      </ion-content> -->
+      </ion-content>
 
     </ion-menu> 
 
@@ -36,8 +36,14 @@
       <ion-content>
   
         <ion-card>
-          <ion-label>hola</ion-label>
-          <app-personaje></app-personaje>
+          <ion-item *ngFor="let personaje of personajes">
+            <ion-label></ion-label>
+            <ion-label></ion-label>
+            <ion-label></ion-label>
+            <ion-label></ion-label>
+            <ion-label></ion-label>
+          </ion-item>
+          
         </ion-card>
   
   
@@ -46,15 +52,9 @@
             <ion-icon name="chevron-up-circle"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="top">
-            <ion-fab-button [routerLink]="['/personaje']">
+            <ion-fab-button [routerLink]="['/crear']">
               <ion-icon name="document"></ion-icon>
             </ion-fab-button>
-            <!-- <ion-fab-button>
-              <ion-icon name="color-palette"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-button>
-              <ion-icon name="globe"></ion-icon>
-            </ion-fab-button> -->
           </ion-fab-list>
         </ion-fab>
       </ion-content>

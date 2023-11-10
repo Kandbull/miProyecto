@@ -10,5 +10,5 @@ export class PersonajeComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
+  
 }
