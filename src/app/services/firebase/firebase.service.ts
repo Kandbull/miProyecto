@@ -53,21 +53,6 @@ export class FirebaseService {
     return colleccion.doc(id).set(data);
   }
 
-  getPersonaje(path: string, id:string){
-    const colleccion = this.firestore.collection(path);
 
-    //valueChanges es un observable de este documento
-    return colleccion.doc(id).valueChanges();
-  }
-
-  getListaPersonaje<tipo>(path: string){
-    const collection = this.firestore.collection<tipo>(path);
-    return collection.valueChanges();
-  }
-
-  updatePersonaje(data: any, path: string, id: string){
-    const collection = this.firestore.collection(path);
-    return collection.doc(id).update(data);
-  }
 
 }
