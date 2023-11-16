@@ -39,9 +39,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registrar/registrar.module').then( m => m.RegistrarPageModule)
   },
   {
-    path: 'personaje',
-    loadChildren: () => import('./pages/personaje/personaje.module').then( m => m.PersonajePageModule)
-  },  {
     path: 'crear',
     loadChildren: () => import('./pages/crear/crear.module').then( m => m.CrearPageModule)
   },
