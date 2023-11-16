@@ -68,6 +68,17 @@ export class LoginPage implements OnInit {
     })*/
   }
 
+  iniciarSesion() {
+		this.firebaseAuthService.iniciarSesion(this.usuarioLogin, this.passwordLogin)
+		  .then((usuario) => {
+			console.log('Inicio de sesión exitoso:', usuario);
+			// Redirecciona a la página principal o realiza otras acciones necesarias.
+		  })
+		  .catch((error) => {
+			console.error('Error al iniciar sesión:', error);
+		  });
+	  }
+
   async ingresar() {
 		await this.interactions.presentLoading('Ingresando')
 		const res = await this.firebaseAuthService

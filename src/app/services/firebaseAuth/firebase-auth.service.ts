@@ -14,6 +14,18 @@ export class FirebaseAuthService {
 			
 		})
 	}
+	iniciarSesion(correo: string, contraseña: string) {
+		return this.authFirebase.signInWithEmailAndPassword(correo, contraseña);
+	  }
+	
+	  cerrarSesion() {
+		return this.authFirebase.signOut();
+	  }
+	
+	  obtenerUsuarioActual() {
+		return this.authFirebase.authState;
+	  }
+
 	async logIn(email: string, password: string) {
 		return await this.authFirebase.signInWithEmailAndPassword(email, password)
 	}
