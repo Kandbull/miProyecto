@@ -3,7 +3,7 @@
     <!-- Side Menu -->
     <ion-menu contentId="main-content">
       
-      <!-- <ion-header>
+      <ion-header>
         <ion-toolbar color="secundary">
           <ion-title>Menu</ion-title>
         </ion-toolbar>
@@ -13,10 +13,10 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item [routerLink]="['/home']">Inicio</ion-item>
             <ion-item [routerLink]="['/perfil']">Perfil</ion-item>
-            <ion-item [routerLink]="['/personaje']">Personaje</ion-item>
+            <ion-item [routerLink]="['/crear']">Personaje</ion-item>
           </ion-menu-toggle>
         </ion-list>
-      </ion-content> -->
+      </ion-content>
 
     </ion-menu> 
 
@@ -46,7 +46,7 @@
             <ion-icon name="chevron-up-circle"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="top">
-            <ion-fab-button [routerLink]="['/personaje']">
+            <ion-fab-button [routerLink]="['/crear']">
               <ion-icon name="document"></ion-icon>
             </ion-fab-button>
             <!-- <ion-fab-button>

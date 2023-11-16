@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { WardGuard } from './ward/ward.guard';
+import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/compat/auth-guard';
 
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([''])
+const redirectLoggedInToHome = () => redirectLoggedInTo(['home'])
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
   {
     path: '',
     redirectTo: 'login',
@@ -14,7 +13,15 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [AngularFireAuthGuard],
+		data: { authGuardPipe: redirectLoggedInToHome }
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate: [AngularFireAuthGuard],
+		data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
     path: 'restablecer',
@@ -22,7 +29,9 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
+    canActivate: [AngularFireAuthGuard],
+		data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   /** 
   {
@@ -32,7 +41,9 @@ const routes: Routes = [
   */
   {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
+    canActivate: [AngularFireAuthGuard],
+		data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
     path: 'registrar',
@@ -41,7 +52,9 @@ const routes: Routes = [
 
   {
     path: 'crear',
-    loadChildren: () => import('./pages/crear/crear.module').then( m => m.CrearPageModule)
+    loadChildren: () => import('./pages/crear/crear.module').then( m => m.CrearPageModule),
+    canActivate: [AngularFireAuthGuard],
+		data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
 
 
