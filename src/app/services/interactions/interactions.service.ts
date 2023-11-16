@@ -4,7 +4,7 @@ import {
 	LoadingController,
 	ToastController,
 } from '@ionic/angular'
-import { ShowAlertSimple } from '../interfaces'
+import { ShowAlertSimple } from 'src/app/interfaces/interface' 
 @Injectable({
 	providedIn: 'root',
 })

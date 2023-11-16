@@ -5,3 +5,10 @@ export interface Personaje{
     //habilidad: string | undefined;
     descripcion: string | undefined; 
 }
+
+export interface ShowAlertSimple {
+	header: string
+	subHeader?: string
+	message?: string
+	buttons: Array<string>
+}
