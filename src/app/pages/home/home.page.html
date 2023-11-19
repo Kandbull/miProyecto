@@ -1,9 +1,10 @@
-<ion-app>
 
-    <!-- Side Menu -->
-    <ion-menu contentId="main-content">
+<ion-app> 
+
+     <!-- Side Menu  -->
+     <ion-menu contentId="main-content">
       
-      <ion-header>
+       <ion-header>
         <ion-toolbar color="secundary">
           <ion-title>Menu</ion-title>
         </ion-toolbar>
@@ -14,13 +15,16 @@
             <ion-item [routerLink]="['/home']">Inicio</ion-item>
             <ion-item [routerLink]="['/perfil']">Perfil</ion-item>
             <ion-item [routerLink]="['/crear']">Personaje</ion-item>
+            <ion-item (click)="cerrarSesion()">
+              <ion-label>Cerrar Sesión</ion-label>
+            </ion-item>
           </ion-menu-toggle>
         </ion-list>
-      </ion-content>
+      </ion-content> 
 
-    </ion-menu> 
+    </ion-menu>  
 
-    <!-- Este div ayuda a poder abrir de lado en el menu -->
+     <!-- Este div ayuda a poder abrir de lado en el menu -->
     <div class="ion-page" id="main-content">
 
       <ion-header>
@@ -49,12 +53,7 @@
             <ion-fab-button [routerLink]="['/crear']">
               <ion-icon name="document"></ion-icon>
             </ion-fab-button>
-            <!-- <ion-fab-button>
-              <ion-icon name="color-palette"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-button>
-              <ion-icon name="globe"></ion-icon>
-            </ion-fab-button> -->
+
           </ion-fab-list>
         </ion-fab>
       </ion-content>
