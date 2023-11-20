@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ToastOptions } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
-import { Usuario } from 'src/app/interfaces/registro';
+import { Usuario } from 'src/app/interfaces/interface'; 
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 
@@ -21,8 +21,8 @@ export class RegistrarPage implements OnInit {
   newUsuario: Usuario = {
     id: this.firebase.getId(),
     nombre: '',
-    username: '',
-    password: 0
+    username: ''
+
   };
 
   private path = '/usuario';
@@ -48,9 +48,6 @@ export class RegistrarPage implements OnInit {
       return;
     }if(this.newUsuario.nombre == ""){
       this.dbservice.presentToast("Falta crear usuario");
-      return;
-    }if(this.newUsuario.password == null){
-      this.dbservice.presentToast("Falta crear contraseña");
       return;
     }else{
       //this.dbservice.addUsuario(this.correoRegistro, this.usuarioRegistro, this.passwordRegistro);

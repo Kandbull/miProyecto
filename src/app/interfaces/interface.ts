@@ -1,8 +1,7 @@
 export interface Personaje{
-    id: number | undefined;
+    id: string | undefined;
     nombre: string | undefined;
     edad: number | undefined;
-    //habilidad: string | undefined;
     descripcion: string | undefined; 
 }
 
@@ -11,4 +10,11 @@ export interface ShowAlertSimple {
 	subHeader?: string
 	message?: string
 	buttons: Array<string>
+}
+
+export interface Usuario {
+    id: string | undefined;
+    nombre: string | undefined;
+    username: string | undefined;
+    
 }

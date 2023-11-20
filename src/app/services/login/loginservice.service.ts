@@ -9,7 +9,7 @@ import { Usuario } from 'src/app/interfaces/registro';
 })
 export class LoginserviceService {
 
-  URL = 'https://nancyb3a.github.io/Test_/usuarios_PGY4121_08.json'
+  private profeJson = 'https://nancyb3a.github.io/Test_/usuarios_PGY4121_08.json'
 
   httpHeader = {
     headers: new HttpHeaders({ 
@@ -19,7 +19,15 @@ export class LoginserviceService {
   };
   constructor(private http: HttpClient) { }
 
-  getUser(){
+  getData(): Observable<any> {
+    return this.http.get(this.profeJson);
+  }
+
+}
+
+/**
+ 
+ getUser(){
     return this.http.get(this.URL)
   }
 
@@ -30,8 +38,6 @@ export class LoginserviceService {
   getSoloUsuario(username: any){
     return this.http.get(this.URL);
   }
-  /**
-  
   
   getUsuarios(id: any): Observable<Registro[]> {
     return this.http.get<Registro[]>(`${this.URL}` + id).pipe(
@@ -45,16 +51,16 @@ export class LoginserviceService {
       tap((registro) => console.log('Registro fetched!')),
       catchError(this.handleError<Registro[]>('Get registro', []))
     );
-  } */
+  } 
 
-  /***
+  
   updatePost(id: any, registro: Registro): Observable<any> {
     return this.http.put(`${URL}/posts/` + id,registro, this.httpHeader).pipe(
       tap((_) => console.log(`Post updated: ${id}`)),
       catchError(this.handleError<Registro[]>('Update post'))
     );
   }
- */
+ 
 
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -65,4 +71,8 @@ export class LoginserviceService {
     };
   }
 
-}
+ */
+
+
+
+

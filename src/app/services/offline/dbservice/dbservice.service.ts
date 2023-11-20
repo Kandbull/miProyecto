@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { Usuario } from '../../../interfaces/registro';
+import { Usuario } from 'src/app/interfaces/interface'; 
 
 @Injectable({
   providedIn: 'root'
@@ -63,8 +63,7 @@ export class DbserviceService {
             items.push({
               id: res.rows.item(i).id,
               nombre: res.rows.item(i).nombre,
-              username: res.rows.item(i).username,
-              password: res.rows.item(i).password
+              username: res.rows.item(i).username
             });
           }
         }

@@ -8,7 +8,7 @@ import { Personaje } from 'src/app/interfaces/interface';
 })
 export class ApiService {
 
-  URL: string = 'https://github.com/Kandbull/apiPoderes/blob/main/poderes.json';
+  private jsonUrl = 'https://github.com/Kandbull/apiPoderes/blob/main/poderes.json';
 
   httpHeader = {
     Headers: new HttpHeaders({
@@ -19,7 +19,14 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getPersonaje(id: any): Observable<Personaje[]> {
+  getData(): Observable<any>{
+    return this.http.get(this.jsonUrl);
+  }
+  
+}
+
+/**
+ getPersonaje(id: any): Observable<Personaje[]> {
     return this.http.get<Personaje[]>(`${this.URL}/users/` + id).pipe(
       tap((_) => console.log(`Personaje fetched: ${id}`)),
       catchError(this.handleError<Personaje[]>(`Get personaje id=${id}`))
@@ -39,4 +46,5 @@ export class ApiService {
       return of(result as T);
     };
   }
-}
+
+ */

@@ -40,7 +40,16 @@
       <ion-content>
   
         <ion-card>
-          <ion-label>hola</ion-label>
+          
+            <ion-item *ngFor="let personaje of personajes">
+              <ion-label>
+                <ion-label>{{personaje.nombre}}</ion-label>
+                <ion-label>{{personaje.edad}}</ion-label>
+                <ion-label>{{personaje.descripcion}}</ion-label>
+              </ion-label>
+              
+            </ion-item>
+          
           
         </ion-card>
   

@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 import { Observable } from 'rxjs';
 import { Personaje } from 'src/app/interfaces/interface';
+import { FirebaseAuthService } from '../firebaseAuth/firebase-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  constructor(private firestore: AngularFirestore) { }
+  userCollection: string | undefined;
 
+  constructor(private firestore: AngularFirestore,
+    private authService: FirebaseAuthService
+    ) { 
+    this.authService.user$.subscribe((user) => {
+      if(user){
+        this.userCollection = 'users/${user.uid}';
+      }
+    });
+  }
+  
 
   crearDoc(){
     this.firestore.collection('usuario')
@@ -48,11 +59,30 @@ export class FirebaseService {
    * ya sea para todas las funcionalidades de "Crear Personaje"
    */
 
-  crearPersonaje(data:any, path: string, id: string){
+  createPersonaje(data:any, path: string, id: string | undefined){
     const colleccion = this.firestore.collection(path);
     return colleccion.doc(id).set(data);
   }
 
+  getPersonaje(path: string, id: string){
+    const colleccion = this.firestore.collection(path);
+    // valueChanges es un observable de este documento
+    return colleccion.doc(id).valueChanges();
+  }
 
+  updatePersonaje(data: any, path: string, id: string){
+    const collection = this.firestore.collection(path);
+    return collection.doc(id).update(data);
+  }
+
+  deletePersonaje(path: string, id: string){
+    const collection = this.firestore.collection(path);
+    return collection.doc(id).delete();
+  }
+
+  getListPersonaje<tipo>(path: string){
+    const collection = this.firestore.collection<tipo>(path);
+    return collection.valueChanges();
+  }
 
 }
