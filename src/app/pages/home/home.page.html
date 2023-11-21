@@ -14,7 +14,7 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item [routerLink]="['/home']">Inicio</ion-item>
             <ion-item [routerLink]="['/perfil']">Perfil</ion-item>
-            <ion-item [routerLink]="['/crear']">Personaje</ion-item>
+            <!-- <ion-item [routerLink]="['/crear']">Personaje</ion-item> -->
             <ion-item (click)="cerrarSesion()">
               <ion-label>Cerrar Sesión</ion-label>
             </ion-item>
@@ -38,20 +38,59 @@
     
   
       <ion-content>
-  
-        <ion-card>
+        <ion-modal trigger="open-modal">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button (click)="cancel()">Cancel</ion-button>
+                </ion-buttons>
+                <ion-title>Personaje</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="guardarPersonaje()" [strong]="true">Confirm</ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-card>
+                <ion-card-content>
+                  <ion-list>
+                    <ion-item>
+                      <ion-input [(ngModel)]="newPersonaje.nombre" label="Nombre de personaje: " placeholder="Escriba aquí"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-input [(ngModel)]="newPersonaje.edad" label="Edad del personaje: " placeholder="Escriba aquí" type="number"></ion-input>
+                    </ion-item>
+                    
+                  </ion-list>
+                </ion-card-content>
+                <ion-card-content>
+                  <ion-label>Historia del personaje: </ion-label>
+                    <ion-item>
+                      <ion-textarea [(ngModel)]="newPersonaje.descripcion" placeholder="Escriba aquí" ></ion-textarea>
+                    </ion-item>
+                </ion-card-content>
+              </ion-card>
+              <ion-card-content>
+                <ion-button (click)="nuevoPersonaje()" expand="block">Limpiar</ion-button>
+              </ion-card-content>
+            </ion-content>
+          </ng-template>
+
+        </ion-modal>
+        
           
-            <ion-item *ngFor="let personaje of personajes">
+            <!-- <ion-item *ngFor="let personaje of personajes">
               <ion-label>
                 <ion-label>{{personaje.nombre}}</ion-label>
                 <ion-label>{{personaje.edad}}</ion-label>
                 <ion-label>{{personaje.descripcion}}</ion-label>
               </ion-label>
               
-            </ion-item>
+            </ion-item> -->
           
           
-        </ion-card>
+       
   
   
         <ion-fab slot="fixed" vertical="bottom" horizontal="end">
@@ -59,7 +98,7 @@
             <ion-icon name="chevron-up-circle"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="top">
-            <ion-fab-button [routerLink]="['/crear']">
+            <ion-fab-button id="open-modal">
               <ion-icon name="document"></ion-icon>
             </ion-fab-button>
 

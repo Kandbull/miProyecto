@@ -33,7 +33,7 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-input type="email" placeholder="Escribe aqui" [(ngModel)]="newUsuario.username"></ion-input>
+          <ion-input type="email" placeholder="Escribe aqui" [(ngModel)]="correoRegistro"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -43,22 +43,27 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-input placeholder="Escribe aqui" [(ngModel)]="newUsuario.nombre"></ion-input>
+          <ion-input placeholder="Escribe aqui" [(ngModel)]="usuarioRegistro"></ion-input>
         </ion-col>
       </ion-row>
 
       <!-- Contraseña n1 -->
       <ion-item>
-        Ingresa tu contraseña
+        Escribe tu contraseña:
       </ion-item>
+      <ion-row>
+          <ion-col>
+            <ion-input placeholder="Escribe aqui" [(ngModel)]="passwordRegistro"></ion-input>
+          </ion-col>
+        </ion-row>
 
     </ion-card-content>
 
   </ion-card>
-
+  ronoaace@gmail.com
   
   <ion-card-content>
-    <ion-button expand="block" (click)="comprobarRegistro()">Registrar</ion-button>
+    <ion-button expand="block" >Registrar</ion-button>
   </ion-card-content>
   
 

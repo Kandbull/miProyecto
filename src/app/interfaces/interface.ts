@@ -16,5 +16,6 @@ export interface Usuario {
     id: string | undefined;
     nombre: string | undefined;
     username: string | undefined;
+    listaPersonaje: Array<Personaje>
     
 }

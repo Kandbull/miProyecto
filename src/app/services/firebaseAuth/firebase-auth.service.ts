@@ -1,35 +1,59 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import 'firebase/auth'
+import { User, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Observable } from 'rxjs'
+import { Usuario } from 'src/app/interfaces/interface';
+import { UserUsuario } from 'src/app/interfaces/interfaz';
 @Injectable({
 	providedIn: 'root',
 })
 export class FirebaseAuthService {
-	
-	user$: Observable<any>;
-	currentUser = null
+
+
+	currentUser: any = null
 	constructor(
-		private authFirebase: AngularFireAuth //firebase.auth.Auth
+		private authFirebase: AngularFireAuth, //firebase.auth.Auth
+		private firestore: AngularFirestore
 	) {
-		this.user$ = this.authFirebase.authState;
-		this.getUID()
+		this.getUID();
 		this.authFirebase.authState.subscribe((user) => {
-			
+			this.currentUser = user
 		})
+
 	}
 
-	iniciarSesion(correo: string, contraseña: string) {
-		return this.authFirebase.signInWithEmailAndPassword(correo, contraseña);
-	  }
-	
-	  cerrarSesion() {
+	// Registro de usuario
+	crearUsuario(email: string, password: string) {
+		return this.authFirebase.createUserWithEmailAndPassword(email, password);
+	}
+
+	/** Inicio de sesion
+	 * Y tambien es algo que me funciona
+	 */
+	iniciarSesion(email: string, contraseña: string) {
+		return this.authFirebase.signInWithEmailAndPassword(email, contraseña);
+	}
+
+	// Cerrar sesion
+	cerrarSesion() {
 		return this.authFirebase.signOut();
-	  }
-	
-	  obtenerUsuarioActual() {
+	}
+
+	//Obtener una referencia del documento del usuario en la Firestore
+	getUserDocument(userId: string){
+		return this.firestore.collection('usuario').doc(userId);
+	}
+
+	//guardar datos en la firestore
+	guardarDatosUsuario(userId: string, data: any){
+		return this.getUserDocument(userId).set(data, {merge: true});
+	}
+
+	obtenerUsuarioActual() {
 		return this.authFirebase.authState;
-	  }
+	}
 
 	async logIn(email: string, password: string) {
 		return await this.authFirebase.signInWithEmailAndPassword(email, password)

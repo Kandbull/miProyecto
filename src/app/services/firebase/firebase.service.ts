@@ -4,6 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable } from 'rxjs';
 import { Personaje } from 'src/app/interfaces/interface';
 import { FirebaseAuthService } from '../firebaseAuth/firebase-auth.service';
+import { User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +17,58 @@ export class FirebaseService {
   constructor(private firestore: AngularFirestore,
     private authService: FirebaseAuthService
     ) { 
+      /** 
     this.authService.user$.subscribe((user) => {
       if(user){
         this.userCollection = 'users/${user.uid}';
       }
-    });
+    });*/
   }
+
+  /** ####################################
+   *      Autenticacion del video  
+   * #########################################*/
+
+  // Acceder
+  /** 
+  signIn(user: User){
+    return signInWithEmailAndPassword(getAuth(), user.email, user.password);
+  }*/
+
+  // Crear Usuario
+  /** 
+  signUp(user: User){
+    return createUserWithEmailAndPassword(getAuth(), user.email, user.password);
+  }*/
+
+  // Actualizar Usuario
+  /** 
+  updateUser(displayName: string){
+    return updateProfile(getAuth().currentUser, { displayName })
+  }*/
+
+  // Setear un documento
+  /** 
+  setDocument( path: string, data: any){
+    return setDoc(doc(getFirestore(), path),da)
+  }*/
+
+
+
+  /** Codigo que funciona en la firestore
+   * Aqui estan las cosas del usuario y tambien de la creacion del personaje
+   * Despues veo que quito y que se queda
+   */
   
+  getDocument<T>(path: string, id: string) {
+		const collection = this.firestore.collection<T>(path)
+		return collection.doc<T>(id).valueChanges()
+	}
+
+  deleteDocument(path: string, id: string) {
+		const collection = this.firestore.collection(path)
+		return collection.doc(id).delete()
+	}
 
   crearDoc(){
     this.firestore.collection('usuario')
@@ -34,9 +81,9 @@ export class FirebaseService {
     });
   }
 
-  crearUsuario(data: any, path: string, id: string | undefined){
+  crearUsuario(data: any, path: string, email: string | undefined){
     const collection = this.firestore.collection(path);
-    return collection.doc(id).set(data);
+    return collection.doc(email).set(data);
   }
   
   /** Esto es para crear una id aleatoria
@@ -46,11 +93,11 @@ export class FirebaseService {
     return this.firestore.createId();
   }
 
-  getUsuario(path: string, id:string){
+  getUsuario(path: string, correo:string){
     const colleccion = this.firestore.collection(path);
 
     //valueChanges es un observable de este documento
-    return colleccion.doc(id).valueChanges();
+    return colleccion.doc(correo).valueChanges();
   }
 
   /**

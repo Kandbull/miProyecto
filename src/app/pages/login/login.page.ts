@@ -3,10 +3,11 @@ import { NavigationExtras, Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
-//import { LoginserviceService } from 'src/app/services/login/loginservice.service';
+import { LoginserviceService } from 'src/app/services/login/loginservice.service';
 import { Usuario } from 'src/app/interfaces/interface'; 
 import { InteractionsService } from 'src/app/services/interactions/interactions.service';
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,13 @@ export class LoginPage implements OnInit {
     
   }
 
+  usuario: Usuario = {
+    id: '',
+    nombre: '',
+    username: '',
+    listaPersonaje: []
+  }
+
   // Branch Principal
   
   usuarioLogin= "";
@@ -36,12 +44,17 @@ export class LoginPage implements OnInit {
   newUsuario: Usuario = {
     id: this.firebase.getId(),
     nombre: '',
-    username: ""
+    username: this.usuarioLogin,
+    listaPersonaje: []
   };
+
+  usuarios = []
 
   private path = '/usuario';
 
-  usuarios:any;
+  private pathi = '/usuarios';
+
+  //usuarios:any;
 
   loading: any;
 
@@ -53,15 +66,17 @@ export class LoginPage implements OnInit {
               private firebase: FirebaseService,
               public loadingController: LoadingController,
               public firebaseAuthService: FirebaseAuthService,
-		          public interactions: InteractionsService
+		          public interactions: InteractionsService,
+              private firestore: AngularFirestore
               ) 
               {// this.getUsuariostList();
               }
 
   ngOnInit() {
-    /***this.loginservice.getUsuarios().subscribe((resp) => {
-      Object.values(resp).forEach((usuario) => {
-        this.usuarios.push(...usuario)
+    /** 
+    this.loginservice.getUsers().subscribe((respuesta) => {
+      Object.values(respuesta).forEach((usuarioApi) => {
+        this.usuarios.push(...usuarioApi)
         console.log(this.usuarios)
       })
     })*/
@@ -70,13 +85,23 @@ export class LoginPage implements OnInit {
   iniciarSesion() {
 		this.firebaseAuthService.iniciarSesion(this.usuarioLogin, this.passwordLogin)
 		  .then((usuario) => {
-			console.log('Inicio de sesión exitoso:', usuario);
+			console.log('Inicio de sesión exitoso:', this.usuarioLogin);
 			// Redirecciona a la página principal o realiza otras acciones necesarias.
+      
 		  })
+
 		  .catch((error) => {
 			console.error('Error al iniciar sesión:', error);
 		  });
+      
 	  }
+
+    
+  getData(){
+    this.firestore.collection('usuario').valueChanges().subscribe((data) =>{
+      console.log('Datos de Firestore: ', data);
+    })
+  }
 
   async ingresar() {
 		await this.interactions.presentLoading('Ingresando')
@@ -88,7 +113,9 @@ export class LoginPage implements OnInit {
 		if (res) {
 			console.log('res ->', res)
 			this.interactions.closeLoading()
-			this.interactions.presentToast('Ingresado con exito')
+			this.interactions.presentToast('Ingresado con exito '+ this.usuarioLogin)
+      this.firebase.crearUsuario(this.newUsuario, this.pathi, this.usuarioLogin)
+      this.firebase.getUsuario(this.pathi, this.usuarioLogin)
 			this.router.navigate(['/home'])
 		}
 	}

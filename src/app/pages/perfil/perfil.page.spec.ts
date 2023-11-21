@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PerfilPage } from './perfil.page';
+import { PerfilPage } from './PerfilPage';
 
 describe('PerfilPage', () => {
   let component: PerfilPage;

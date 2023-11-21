@@ -6,6 +6,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { Usuario } from 'src/app/interfaces/interface';
 
 
+
 @Component({
 	selector: 'app-perfil',
 	templateUrl: './perfil.page.html',
@@ -14,6 +15,10 @@ import { Usuario } from 'src/app/interfaces/interface';
 export class PerfilPage implements OnInit {
 	login: boolean = false;
 
+	@Input() usuario!: Usuario
+	@Input() loaded!: boolean
+	
+
 	constructor(
 		private router: Router,
 		public alertController: AlertController,
@@ -21,7 +26,7 @@ export class PerfilPage implements OnInit {
 		public firebase: FirebaseService
 
 	) {
-		/** 
+
 		this.firebaseAuthService.stateUser().subscribe((res) => {
 			if (res) {
 				console.log('esta logeado');
@@ -32,26 +37,37 @@ export class PerfilPage implements OnInit {
 				this.router.navigate(['']);
 				this.login = false;
 			}
-		});*/
+		});
 	}
 
 	async ngOnInit() {
 	}
-	/** 
+
 	getDatosUsuario(uid: string) {
 		const path = 'usuario';
 		const id = uid;
-		this.firebase.getDocument<Usuario>(path, id).subscribe((res) => {
-			if (res) {
-				this.usuario = res
+		this.firebase.getDocument<Usuario>(path, id).subscribe((respuesta) => {
+			if (respuesta) {
+				this.usuario =  respuesta
                 
 			}
 			this.loaded = true
-			console.log('datos usuario -> ', res)
-		})
+			console.log('datos usuario -> ', respuesta)
+		});
 
-	}*/
-	
+	}
+	/**
+	getDatosAlumno(uid: string) {
+	  const path = 'usuario'
+	  const id = uid
+	  this.firebase.getDocument<Usuario>(path, id).subscribe((res) => {
+		  if (res) {
+			  this.usuario = res
+		  }
+		  this.loaded = true
+		  console.log('datos alumno -> ', res)
+	  })
+  }*/
 	async cerrarSesion() {
 		const alert = await this.alertController.create({
 			header: 'Atención',

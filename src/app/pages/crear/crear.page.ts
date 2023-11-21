@@ -15,8 +15,8 @@ import { InteractionsService } from 'src/app/services/interactions/interactions.
 })
 export class CrearPage implements OnInit {
 
-  ngOnInit() {
-    }
+
+  
 
   newPersonaje: Personaje = {
     id: this.firebase.getId(),
@@ -26,11 +26,7 @@ export class CrearPage implements OnInit {
   }
   enableNewPersonaje = false;
 
-  newUsuario: Usuario = {
-    id: this.firebase.getId(),
-    nombre: '',
-    username: ''
-  }
+  
   enablenewUsuario = false;
 
   loading: any;
@@ -45,24 +41,22 @@ export class CrearPage implements OnInit {
     public loadingController: LoadingController,
     private router: Router
   ) { }
+  
+  ngOnInit() {
+    const router = this.router.getCurrentNavigation()?.extras.state
+    
+    }
 
   personajes:any;
-
+  
+  /** 
   guardarUsuario(){
     this.firebase.crearUsuario(this.newUsuario, this.pathu, this.newUsuario.id).then( res => {      
       this.loading.dismiss()
     }).catch( error => {});
   }
-
-  nuevoUsuario(){
-    this.enablenewUsuario = true;
-    this.newUsuario = {
-      id: this.firebase.getId(),
-      nombre: '',
-      username: ''
-    }
-  }
-
+  */
+  
   guardarPersonaje(){
     this.firebase.createPersonaje(this.newPersonaje, this.path, 
       this.newPersonaje.id).then( res => {

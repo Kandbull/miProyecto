@@ -1,15 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, of, tap} from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { Usuario } from 'src/app/interfaces/registro';
+import { Usuario } from 'src/app/interfaces/interface';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginserviceService {
 
-  private profeJson = 'https://nancyb3a.github.io/Test_/usuarios_PGY4121_08.json'
+  private profeJson = 'https://nancyb3a.github.io/Test_/usuarios_PGY4121_08.json';
+  private loggedInUser: any;
 
   httpHeader = {
     headers: new HttpHeaders({ 
@@ -19,11 +21,36 @@ export class LoginserviceService {
   };
   constructor(private http: HttpClient) { }
 
-  getData(): Observable<any> {
+  getUsers(): Observable<any> {
     return this.http.get(this.profeJson);
   }
 
+  /** 
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.get<any>(this.profeJson).pipe(
+      map(data => {
+        const user = data.usuarios.find(u => u.username === username && u.password === password);
+        if (user) {
+          this.loggedInUser = user;
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError(() => of(false))
+    );
+  }*/
+
+  getLoggedInUser(): any {
+    return this.loggedInUser;
+  }
+
+  logout(): void {
+    this.loggedInUser = null;
+  }
 }
+
+
 
 /**
  

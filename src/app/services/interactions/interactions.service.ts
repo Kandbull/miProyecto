@@ -4,7 +4,7 @@ import {
 	LoadingController,
 	ToastController,
 } from '@ionic/angular'
-import { ShowAlertSimple } from 'src/app/interfaces/interface' 
+import { ShowAlertSimple } from 'src/app/interfaces/interface'
 @Injectable({
 	providedIn: 'root',
 })
@@ -14,7 +14,18 @@ export class InteractionsService {
 		private toastController: ToastController,
 		public loadingController: LoadingController,
 		private alertController: AlertController
-	) {}
+	) { }
+
+	// Guarda un elemento en el localStorage
+	saveInLocalStorage(key: string, value: any) {
+		return localStorage.setItem(key, JSON.stringify(value))
+	}
+
+	// 
+	/**
+	getFromLocalStorage(key: string) {
+		return JSON.parse(localStorage.getItem(key))
+	} */
 
 	async presentToast(mensaje: string, duracion: number = 2000) {
 		const toast = await this.toastController.create({
