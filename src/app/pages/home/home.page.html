@@ -11,7 +11,7 @@
       </ion-header>
       <ion-content contentId="main-content">
         <ion-list>
-          <ion-menu-toggle auto-hide="false">
+          <ion-menu-toggle auto-hide="false">          
             <ion-item [routerLink]="['/home']">Inicio</ion-item>
             <ion-item [routerLink]="['/perfil']">Perfil</ion-item>
             <!-- <ion-item [routerLink]="['/crear']">Personaje</ion-item> -->
@@ -35,6 +35,10 @@
           <ion-title>Inicio</ion-title>
         </ion-toolbar>
       </ion-header>
+
+      <ion-item *ngFor="let personaje of personajes">
+        <ion-label>{{personaje.nombre}}</ion-label>
+      </ion-item>
     
   
       <ion-content>

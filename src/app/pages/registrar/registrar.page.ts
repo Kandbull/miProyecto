@@ -24,8 +24,7 @@ export class RegistrarPage implements OnInit {
   newUsuario: Usuario = {
     id: this.firebase.getId(),
     nombre: '',
-    username: '',
-    listaPersonaje: []
+    username: ''
   };
 
   private path = '/usuario';

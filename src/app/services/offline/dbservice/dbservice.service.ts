@@ -63,8 +63,7 @@ export class DbserviceService {
             items.push({
               id: res.rows.item(i).id,
               nombre: res.rows.item(i).nombre,
-              username: res.rows.item(i).username,
-              listaPersonaje: res.rows.item(i).listaPersonaje
+              username: res.rows.item(i).username
             });
           }
         }

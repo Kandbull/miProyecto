@@ -55,8 +55,22 @@ export class FirebaseAuthService {
 		return this.authFirebase.authState;
 	}
 
-	async logIn(email: string, password: string) {
-		return await this.authFirebase.signInWithEmailAndPassword(email, password)
+	leerUsuarioActual(){
+		this.authFirebase.authState.subscribe(user => {
+		if (user) {
+		  console.log('Usuario actual:', user);
+		} else {
+		  console.log('No hay usuario autenticado');
+		}
+	  });
+	}
+
+	async logIn(email: string| undefined, password: string) {
+		return await this.authFirebase.signInWithEmailAndPassword(email!, password)
+	}
+
+	async obtenerUID(){
+		
 	}
 
 	async resetPassword(email: string) {

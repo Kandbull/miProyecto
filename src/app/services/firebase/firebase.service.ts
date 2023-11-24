@@ -4,8 +4,9 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable } from 'rxjs';
 import { Personaje } from 'src/app/interfaces/interface';
 import { FirebaseAuthService } from '../firebaseAuth/firebase-auth.service';
+import {getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query, updateDoc, deleteDoc} from '@angular/fire/firestore';
 import { User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,42 +18,7 @@ export class FirebaseService {
   constructor(private firestore: AngularFirestore,
     private authService: FirebaseAuthService
     ) { 
-      /** 
-    this.authService.user$.subscribe((user) => {
-      if(user){
-        this.userCollection = 'users/${user.uid}';
-      }
-    });*/
   }
-
-  /** ####################################
-   *      Autenticacion del video  
-   * #########################################*/
-
-  // Acceder
-  /** 
-  signIn(user: User){
-    return signInWithEmailAndPassword(getAuth(), user.email, user.password);
-  }*/
-
-  // Crear Usuario
-  /** 
-  signUp(user: User){
-    return createUserWithEmailAndPassword(getAuth(), user.email, user.password);
-  }*/
-
-  // Actualizar Usuario
-  /** 
-  updateUser(displayName: string){
-    return updateProfile(getAuth().currentUser, { displayName })
-  }*/
-
-  // Setear un documento
-  /** 
-  setDocument( path: string, data: any){
-    return setDoc(doc(getFirestore(), path),da)
-  }*/
-
 
 
   /** Codigo que funciona en la firestore
@@ -64,6 +30,11 @@ export class FirebaseService {
 		const collection = this.firestore.collection<T>(path)
 		return collection.doc<T>(id).valueChanges()
 	}
+
+  //---------------Obtener un documento---------------
+  async getDocumento(path: string){
+    return (await getDoc(doc(getFirestore(),path))).data();
+  }
 
   deleteDocument(path: string, id: string) {
 		const collection = this.firestore.collection(path)
@@ -81,9 +52,14 @@ export class FirebaseService {
     });
   }
 
-  crearUsuario(data: any, path: string, email: string | undefined){
+  crearUsuario(data: any, path: string, id: string | undefined){
     const collection = this.firestore.collection(path);
-    return collection.doc(email).set(data);
+    return collection.doc(id).set(data);
+  }
+
+  setUsuario(path: string, id: string | undefined){
+    const colleccion = this.firestore.collection(path);
+    return colleccion.doc(id).get();
   }
   
   /** Esto es para crear una id aleatoria
@@ -93,11 +69,11 @@ export class FirebaseService {
     return this.firestore.createId();
   }
 
-  getUsuario(path: string, correo:string){
+  getUsuario(path: string, id:string | undefined){
     const colleccion = this.firestore.collection(path);
 
     //valueChanges es un observable de este documento
-    return colleccion.doc(correo).valueChanges();
+    return colleccion.doc(id).valueChanges();
   }
 
   /**
@@ -111,10 +87,10 @@ export class FirebaseService {
     return colleccion.doc(id).set(data);
   }
 
-  getPersonaje(path: string, id: string){
+  getPersonaje(path: string, correo: string){
     const colleccion = this.firestore.collection(path);
     // valueChanges es un observable de este documento
-    return colleccion.doc(id).valueChanges();
+    return colleccion.doc(correo).valueChanges();
   }
 
   updatePersonaje(data: any, path: string, id: string){
@@ -130,6 +106,12 @@ export class FirebaseService {
   getListPersonaje<tipo>(path: string){
     const collection = this.firestore.collection<tipo>(path);
     return collection.valueChanges();
+  }
+
+  //---------------Obtener documentos de una colección---------------
+  getCollectionData(path: string, collectionQuery?: any){
+    const ref = collection(getFirestore(),path);
+    return collectionData(query(ref,collectionQuery),{idField: 'id'});
   }
 
 }

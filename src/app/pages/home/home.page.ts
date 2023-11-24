@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController, IonModal, LoadingController, ModalController} from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, IonModal, LoadingController, ModalController } from '@ionic/angular';
+import { orderBy } from 'firebase/firestore';
 import { Personaje, Usuario } from 'src/app/interfaces/interface';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 //import { ApiService } from 'src/app/services/api/api.service';
@@ -19,26 +20,32 @@ export class HomePage {
 	@Input() usuario!: Usuario
 	@Input() loaded!: boolean
 
-	usuario1!: Usuario
+	user(): Usuario {
+		return this.interactions.getFromLocalStorage('user');
+	}
+
+	personajes: Personaje[] = []
 
 	newPersonaje: Personaje = {
 		id: this.firebase.getId(),
 		nombre: '',
 		edad: undefined,
 		descripcion: ''
-	  }
-	  enableNewPersonaje = false;
-	
+	}
+	enableNewPersonaje = false;
+
 
 	data: any;
 
-	personajes: Personaje[]= [];
-
 	loading: any;
 
-  private path = '/usuario/personaje';
+	private pathi = '/usuarios';
+
+
+	private pathp = '/personajes';
 
 	constructor(
+		private activateRoute: ActivatedRoute,
 		private router: Router,
 		public alertController: AlertController,
 		public firebaseAuthService: FirebaseAuthService,
@@ -48,33 +55,47 @@ export class HomePage {
 		public loadingController: LoadingController
 	) {
 		this.firebaseAuthService.stateUser().subscribe((respuesta) => {
-			if (respuesta){
+			if (respuesta) {
 				console.log('Esta logueado')
 				this.login = true
 				this.getDatosUsuario(respuesta.uid)
+				this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
+				console.log(this.data)
 
 			} else {
 				console.log('no esta logueado')
 				this.router.navigate([''])
 				this.login = false
 			}
-		}) 
-		
+		})
+		/**
+		this.activateRoute.queryParams.subscribe(params =>{//utilizo lambda
+			if (this.router.getCurrentNavigation()?.extras.state) {
+			  this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
+			  console.log(this.data)
+			}else{
+			  this.router.navigate(["/login"]);
+			}
+		  }); */
+
 	}
 
 	ngOnInit() {
+		console.log(this.firebaseAuthService.leerUsuarioActual);
 	}
 
 	/** Usuarios 
 	 */
 
+
+
 	getDatosUsuario(uid: string) {
-		const path = 'usuario'
+		const path = 'usuarios'
 		const id = uid
 		this.firebase.getDocument<Usuario>(path, id).subscribe((respuesta) => {
 			if (respuesta) {
 				this.usuario = respuesta
-				
+
 			}
 			this.loaded = true
 			console.log('datos usuario -> ', respuesta)
@@ -109,48 +130,68 @@ export class HomePage {
 
 	cancel() {
 		return this.modalCtrl.dismiss(null, 'cancel');
-	  }
+	}
 
 
 
-	guardarPersonaje(){
-		this.firebase.createPersonaje(this.newPersonaje, this.path, 
-		  this.newPersonaje.id).then( res => {
-			
-			this.loading.dismiss()
-		  }).catch( error => {});
-		  this.interactions.presentLoading('Creando Personaje...')
-		  return this.modalCtrl.dismiss();
-	  }
-	
-	  nuevoPersonaje(){
+	guardarPersonaje() {
+		this.firebase.createPersonaje(this.newPersonaje, this.pathp,
+			this.newPersonaje.id).then(res => {
+
+				this.loading.dismiss()
+			}).catch(error => { });
+		this.interactions.presentLoading('Creando Personaje...')
+		return this.modalCtrl.dismiss();
+	}
+
+	nuevoPersonaje() {
 		this.enableNewPersonaje = true;
 		this.newPersonaje = {
-		  id: this.firebase.getId(),
-		  nombre: '',
-		  edad: undefined,
-		  descripcion: ''
+			id: this.firebase.getId(),
+			nombre: '',
+			edad: undefined,
+			descripcion: ''
 		}
-	  }
-
+	}
+	/** 
 	getPersonajes(){
 		this.firebase.getListPersonaje<Personaje>(this.path).subscribe( res => {
 			this.personajes = res;
 		})
+	}*/
+
+	getPersonajes() {
+		let path = `usuarios/${this.user().id}/personajes`
+
+		this.loading = true;
+
+		let query = [
+			orderBy('nombre', 'desc',)
+		]
+
+		let sub = this.firebase.getCollectionData(path, query).subscribe({
+			next: (res: any) => {
+				console.log(res);
+				this.personajes = res;
+
+				this.loading = false;
+				sub.unsubscribe();
+			}
+		})
 	}
 
-	
-	
-	  async presentLoading() {
-			this.loading = await this.loadingController.create({
-			  cssClass: 'my-custom-class',
-			  message: 'Guardando...'
-			});
-			await this.loading.present();
-		  
-		  }
-	
 
-	
+
+	async presentLoading() {
+		this.loading = await this.loadingController.create({
+			cssClass: 'my-custom-class',
+			message: 'Guardando...'
+		});
+		await this.loading.present();
+
+	}
+
+
+
 
 }

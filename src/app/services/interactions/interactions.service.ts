@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common'
 import { Injectable } from '@angular/core'
 import {
 	AlertController,
@@ -21,11 +22,11 @@ export class InteractionsService {
 		return localStorage.setItem(key, JSON.stringify(value))
 	}
 
-	// 
-	/**
-	getFromLocalStorage(key: string) {
-		return JSON.parse(localStorage.getItem(key))
-	} */
+	//Obtener un elemento desde localstorage
+	getFromLocalStorage(key: string){
+		return JSON.parse(localStorage.getItem(key)!)
+		//return localStorage.getItem(key)
+	}
 
 	async presentToast(mensaje: string, duracion: number = 2000) {
 		const toast = await this.toastController.create({

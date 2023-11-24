@@ -4,7 +4,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
 import { LoginserviceService } from 'src/app/services/login/loginservice.service';
-import { Usuario } from 'src/app/interfaces/interface'; 
+import { Personaje, Usuario } from 'src/app/interfaces/interface'; 
 import { InteractionsService } from 'src/app/services/interactions/interactions.service';
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -33,24 +33,26 @@ export class LoginPage implements OnInit {
     id: '',
     nombre: '',
     username: '',
-    listaPersonaje: []
+    
   }
+
+  personajes: Personaje[] = []
 
   // Branch Principal
   
   usuarioLogin= "";
   passwordLogin= "";
 
-  newUsuario: Usuario = {
+   newUsuario: Usuario = {
     id: this.firebase.getId(),
     nombre: '',
-    username: this.usuarioLogin,
-    listaPersonaje: []
+    username: ''
+
   };
 
   usuarios = []
 
-  private path = '/usuario';
+  //private path = '/usuario';
 
   private pathi = '/usuarios';
 
@@ -106,19 +108,42 @@ export class LoginPage implements OnInit {
   async ingresar() {
 		await this.interactions.presentLoading('Ingresando')
 		const res = await this.firebaseAuthService
-			.logIn(this.usuarioLogin, this.passwordLogin)
+			.logIn(this.usuario.username, this.passwordLogin)
+      /** 
+      .then(repuesta => {
+        this.getUserInfo(repuesta.user!.uid)
+      })*/
 			.catch((error) => {
 				this.loginErrorsValidator(error)
 			})
 		if (res) {
 			console.log('res ->', res)
 			this.interactions.closeLoading()
-			this.interactions.presentToast('Ingresado con exito '+ this.usuarioLogin)
-      this.firebase.crearUsuario(this.newUsuario, this.pathi, this.usuarioLogin)
-      this.firebase.getUsuario(this.pathi, this.usuarioLogin)
+			this.interactions.presentToast('Ingresado con exito '+ this.usuario.username)
+      //this.firebase.crearUsuario(this.newUsuario, this.pathi, this.newUsuario.id)
+      const resp = await this.firebaseAuthService
+			.logIn(this.usuario.username, this.passwordLogin)
+      .then(repuesta => {
+        this.getUserInfo(repuesta.user!.uid)
+      })
+      
+      this.firebase.getUsuario(this.pathi, this.usuario.username)
+      console.log(this.usuario, ' ', this.usuario.id)
+      console.log(this.firebaseAuthService.getUID, 'este es el uid de fireAuth')
+      this.firebaseAuthService.leerUsuarioActual();
+      /** 
+      let navigationextras: NavigationExtras={
+        state:{
+          user: this.newUsuario, //Al state le asigno un objeto con clave valor
+        }}*/
 			this.router.navigate(['/home'])
 		}
 	}
+
+   getUserInfo(uid: string){
+      let path = `usuarios/${uid}`;
+      this.firebase.getDocumento(path);
+  }
 
 	loginErrorsValidator(error: any): Promise<void> {
 		if (error.code === 'auth/invalid-email') {
