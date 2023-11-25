@@ -98,7 +98,7 @@ export class FirebaseService {
     return collection.doc(id).update(data);
   }
 
-  deletePersonaje(path: string, id: string){
+  deleteDocPersonaje(path: string, id: string){
     const collection = this.firestore.collection(path);
     return collection.doc(id).delete();
   }

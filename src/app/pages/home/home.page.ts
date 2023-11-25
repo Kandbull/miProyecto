@@ -42,7 +42,7 @@ export class HomePage {
 	private pathi = '/usuarios';
 
 
-	private pathp = '/personajes';
+	private pathp = 'personajes/';
 
 	constructor(
 		private activateRoute: ActivatedRoute,
@@ -59,8 +59,9 @@ export class HomePage {
 				console.log('Esta logueado')
 				this.login = true
 				this.getDatosUsuario(respuesta.uid)
-				this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
+				//this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
 				console.log(this.data)
+				console.log(this.getDatosUsuario);
 
 			} else {
 				console.log('no esta logueado')
@@ -82,6 +83,7 @@ export class HomePage {
 
 	ngOnInit() {
 		console.log(this.firebaseAuthService.leerUsuarioActual);
+		this.leerPersonajes();
 	}
 
 	/** Usuarios 
@@ -153,12 +155,17 @@ export class HomePage {
 			descripcion: ''
 		}
 	}
-	/** 
-	getPersonajes(){
-		this.firebase.getListPersonaje<Personaje>(this.path).subscribe( res => {
+	
+	leerPersonajes(){
+		this.firebase.getListPersonaje<Personaje>(this.pathp).subscribe( res => {
 			this.personajes = res;
 		})
-	}*/
+	}
+
+	deletePersonaje(personaje: Personaje){
+		this.firebase.deleteDocPersonaje(this.pathp, personaje.id!);
+
+	  }
 
 	getPersonajes() {
 		let path = `usuarios/${this.user().id}/personajes`
