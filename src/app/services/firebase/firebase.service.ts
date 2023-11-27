@@ -6,7 +6,7 @@ import { Personaje } from 'src/app/interfaces/interface';
 import { FirebaseAuthService } from '../firebaseAuth/firebase-auth.service';
 import {getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query, updateDoc, deleteDoc} from '@angular/fire/firestore';
 import { User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-
+import { Share, ShareResult } from '@capacitor/share';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,8 @@ export class FirebaseService {
   userCollection: string | undefined;
 
   constructor(private firestore: AngularFirestore,
-    private authService: FirebaseAuthService
+    private authService: FirebaseAuthService,
+    private share: ShareResult
     ) { 
   }
 
@@ -123,5 +124,13 @@ export class FirebaseService {
   getFromLocalStorage(key: string){
     return JSON.parse(localStorage.getItem(key)!) 
   }
+
+
+  // Share text only
+  shareText(text: string){
+    
+  }
+
+ 
 
 }

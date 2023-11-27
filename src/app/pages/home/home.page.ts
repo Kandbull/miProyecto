@@ -7,6 +7,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 //import { ApiService } from 'src/app/services/api/api.service';
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
 import { InteractionsService } from 'src/app/services/interactions/interactions.service';
+import { share } from 'rxjs';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class HomePage {
 
 
 	private pathp = 'personaje/';
+
 
 	constructor(
 		private activateRoute: ActivatedRoute,
@@ -83,7 +85,6 @@ export class HomePage {
 
 	ngOnInit() {
 		
-		console.log(this.firebaseAuthService.leerUsuarioActual);
 		this.leerPersonajes();
 		this.getPersonajes();
 	}
@@ -105,6 +106,11 @@ export class HomePage {
 			console.log('datos usuario -> ', respuesta)
 		})
 	}
+
+	// Compartir texto
+	compartir(){
+	}
+
 
 	async cerrarSesion() {
 		const alert = await this.alertController.create({
@@ -139,7 +145,7 @@ export class HomePage {
 
 
 	guardarPersonaje() {
-		let path = `usuario/${this.user().id}/personajes`
+		
 
 		this.firebase.createPersonaje(this.newPersonaje, this.pathp,
 			this.newPersonaje.id).then(res => {
