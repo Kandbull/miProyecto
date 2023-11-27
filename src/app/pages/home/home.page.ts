@@ -91,7 +91,9 @@ export class HomePage {
 
 	/** Usuarios 
 	 */
-
+	recargarPagina() {
+		window.location.reload();
+	}
 
 
 	getDatosUsuario(uid: string) {

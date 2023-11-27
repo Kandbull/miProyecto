@@ -16,8 +16,7 @@ export class FirebaseService {
   userCollection: string | undefined;
 
   constructor(private firestore: AngularFirestore,
-    private authService: FirebaseAuthService,
-    private share: ShareResult
+    private authService: FirebaseAuthService
     ) { 
   }
 

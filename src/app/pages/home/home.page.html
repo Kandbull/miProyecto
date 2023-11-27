@@ -12,8 +12,8 @@
       <ion-content contentId="main-content">
         <ion-list>
           <ion-menu-toggle auto-hide="false">          
-            <ion-item [routerLink]="['/home']">Inicio</ion-item>
-            <ion-item [routerLink]="['/perfil']">Perfil</ion-item>
+            <ion-item (click)="recargarPagina()">Inicio</ion-item>
+            <!-- <ion-item [routerLink]="['/perfil']">Perfil</ion-item> -->
             <!-- <ion-item [routerLink]="['/crear']">Personaje</ion-item> -->
             <ion-item (click)="cerrarSesion()">
               <ion-label>Cerrar Sesión</ion-label>
