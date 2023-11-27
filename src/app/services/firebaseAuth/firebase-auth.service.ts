@@ -41,6 +41,11 @@ export class FirebaseAuthService {
 		return this.authFirebase.signOut();
 	}
 
+	/** Intentando obtener el uid del usuario */
+	getTokenUid(uid: string){
+		
+	}
+
 	//Obtener una referencia del documento del usuario en la Firestore
 	getUserDocument(userId: string){
 		return this.firestore.collection('usuario').doc(userId);
@@ -52,7 +57,7 @@ export class FirebaseAuthService {
 	}
 
 	obtenerUsuarioActual() {
-		return this.authFirebase.authState;
+
 	}
 
 	leerUsuarioActual(){

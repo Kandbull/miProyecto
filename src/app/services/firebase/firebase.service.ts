@@ -114,4 +114,14 @@ export class FirebaseService {
     return collectionData(query(ref,collectionQuery),{idField: 'id'});
   }
 
+  //---------------Guardar un elemento en localstorage---------------
+  saveInLocalStorage(key: string, value: any){
+    return localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  //---------------Obtener un elemento desde localstorage---------------
+  getFromLocalStorage(key: string){
+    return JSON.parse(localStorage.getItem(key)!) 
+  }
+
 }

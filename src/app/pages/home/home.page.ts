@@ -42,7 +42,7 @@ export class HomePage {
 	private pathi = '/usuarios';
 
 
-	private pathp = 'personajes/';
+	private pathp = 'personaje/';
 
 	constructor(
 		private activateRoute: ActivatedRoute,
@@ -82,8 +82,10 @@ export class HomePage {
 	}
 
 	ngOnInit() {
+		
 		console.log(this.firebaseAuthService.leerUsuarioActual);
 		this.leerPersonajes();
+		this.getPersonajes();
 	}
 
 	/** Usuarios 
@@ -137,6 +139,8 @@ export class HomePage {
 
 
 	guardarPersonaje() {
+		let path = `usuario/${this.user().id}/personajes`
+
 		this.firebase.createPersonaje(this.newPersonaje, this.pathp,
 			this.newPersonaje.id).then(res => {
 
@@ -168,7 +172,7 @@ export class HomePage {
 	  }
 
 	getPersonajes() {
-		let path = `usuarios/${this.user().id}/personajes`
+		let path = `usuario/${this.user().id}/personajes`
 
 		this.loading = true;
 
