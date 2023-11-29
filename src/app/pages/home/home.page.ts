@@ -4,11 +4,13 @@ import { AlertController, IonModal, LoadingController, ModalController } from '@
 import { orderBy } from 'firebase/firestore';
 import { Personaje, Usuario } from 'src/app/interfaces/interface';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
-//import { ApiService } from 'src/app/services/api/api.service';
+
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
 import { InteractionsService } from 'src/app/services/interactions/interactions.service';
-import { share } from 'rxjs';
-
+//import { Share, SharePlugin } from '@capacitor/share';
+import { Share } from '@capacitor/share';
+import { ApiService } from 'src/app/services/api/api.service';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
 	selector: 'app-home',
@@ -31,7 +33,9 @@ export class HomePage {
 		id: this.firebase.getId(),
 		nombre: '',
 		edad: undefined,
-		descripcion: ''
+		descripcion: '',
+		tPersonajeFunc: '',
+		tPersonajeRol: ''
 	}
 	enableNewPersonaje = false;
 
@@ -45,6 +49,16 @@ export class HomePage {
 
 	private pathp = 'personaje/';
 
+	public sendEmail(e: Event) {
+		e.preventDefault();
+		emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target as HTMLFormElement, 'YOUR_PUBLIC_KEY')
+		  .then((result: EmailJSResponseStatus) => {
+			console.log(result.text);
+		  }, (error) => {
+			console.log(error.text);
+		  });
+	  }
+
 
 	constructor(
 		private activateRoute: ActivatedRoute,
@@ -54,7 +68,10 @@ export class HomePage {
 		public firebase: FirebaseService,
 		private modalCtrl: ModalController,
 		public interactions: InteractionsService,
-		public loadingController: LoadingController
+		public loadingController: LoadingController,
+		//private apirandom: ApiService
+		//private sharep: SharePlugin
+
 	) {
 		this.firebaseAuthService.stateUser().subscribe((respuesta) => {
 			if (respuesta) {
@@ -84,10 +101,31 @@ export class HomePage {
 	}
 
 	ngOnInit() {
-		
+
 		this.leerPersonajes();
 		this.getPersonajes();
+		
 	}
+
+	/** Aqui se comparten cosas */
+	shareApp() {
+		Share.share({
+			title: 'See cool stuff',
+			text: this.leerPersonajes()!,
+			url: 'http://ionicframework.com/',
+			dialogTitle: 'Share with buddies',
+		});
+	}
+
+	sharePagAyuda(){
+		url: 'https://www.coollibri.es/blog/como-crear-un-personaje-ficticio-o-de-novela-en-5-pasos/'
+	}
+
+	enviarEmail(){
+		//email
+	}
+
+	
 
 	/** Usuarios 
 	 */
@@ -109,11 +147,8 @@ export class HomePage {
 		})
 	}
 
-	// Compartir texto
-	compartir(){
-	}
 
-
+	// Cerrar Sesion
 	async cerrarSesion() {
 		const alert = await this.alertController.create({
 			header: 'Atención',
@@ -147,7 +182,7 @@ export class HomePage {
 
 
 	guardarPersonaje() {
-		
+
 
 		this.firebase.createPersonaje(this.newPersonaje, this.pathp,
 			this.newPersonaje.id).then(res => {
@@ -164,20 +199,22 @@ export class HomePage {
 			id: this.firebase.getId(),
 			nombre: '',
 			edad: undefined,
-			descripcion: ''
+			descripcion: '',
+			tPersonajeFunc: '',
+			tPersonajeRol: ''
 		}
 	}
-	
-	leerPersonajes(){
-		this.firebase.getListPersonaje<Personaje>(this.pathp).subscribe( res => {
+
+	leerPersonajes() {
+		this.firebase.getListPersonaje<Personaje>(this.pathp).subscribe(res => {
 			this.personajes = res;
 		})
 	}
 
-	deletePersonaje(personaje: Personaje){
+	deletePersonaje(personaje: Personaje) {
 		this.firebase.deleteDocPersonaje(this.pathp, personaje.id!);
 
-	  }
+	}
 
 	getPersonajes() {
 		let path = `usuario/${this.user().id}/personajes`

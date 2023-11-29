@@ -22,7 +22,9 @@ export class CrearPage implements OnInit {
     id: this.firebase.getId(),
     nombre: '',
     edad: undefined,
-    descripcion: ''
+    descripcion: '',
+    tPersonajeFunc: '',
+			tPersonajeRol: ''
   }
   enableNewPersonaje = false;
 
@@ -73,7 +75,9 @@ export class CrearPage implements OnInit {
       id: this.firebase.getId(),
       nombre: '',
       edad: undefined,
-      descripcion: ''
+      descripcion: '',
+      tPersonajeFunc: '',
+			tPersonajeRol: ''
     }
   }
 

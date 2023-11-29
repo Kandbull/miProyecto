@@ -5,7 +5,7 @@ import 'firebase/auth'
 import { User, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Observable } from 'rxjs'
 import { Usuario } from 'src/app/interfaces/interface';
-import { UserUsuario } from 'src/app/interfaces/interfaz';
+
 @Injectable({
 	providedIn: 'root',
 })

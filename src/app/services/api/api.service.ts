@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
-import { Personaje } from 'src/app/interfaces/interface';
+import { Personaje, RespuestaRandomPersonaje } from 'src/app/interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private jsonUrl = 'https://github.com/Kandbull/apiPoderes/blob/main/poderes.json';
+  //private jsonUrl = 'https://github.com/Kandbull/apiPoderes/blob/main/poderes.json';
 
   httpHeader = {
     Headers: new HttpHeaders({
@@ -19,8 +19,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  /** 
   getData(): Observable<any>{
     return this.http.get(this.jsonUrl);
+  }*/
+
+  getRandomPersonaje(){
+    return this.http.get<RespuestaRandomPersonaje>(`https://randomuser.me/api/?inc=gender,name`);
   }
   
 }

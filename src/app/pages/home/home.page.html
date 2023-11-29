@@ -42,6 +42,8 @@
     
   
       <ion-content>
+
+        <!-- Agregar Personaje -->
         <ion-modal trigger="open-modal">
           <ng-template>
             <ion-header>
@@ -64,6 +66,22 @@
                     </ion-item>
                     <ion-item>
                       <ion-input [(ngModel)]="newPersonaje.edad" label="Edad del personaje: " placeholder="Escriba aquí" type="number"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-select [(ngModel)]="newPersonaje.tPersonajeFunc" label="Tipo funcion personaje" placeholder="Funcion Personaje">
+                        <ion-select-option  value="Personaje Principal">Personaje Principal</ion-select-option>
+                        <ion-select-option value="Personaje Secundario">Personaje Secundario</ion-select-option>
+                        <ion-select-option value="Pesonaje Terciario">Pesonaje Terciario</ion-select-option>
+                        <ion-select-option value="No se aun">No se aún</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-select [(ngModel)]="newPersonaje.tPersonajeRol" label="Tipo rol personaje" placeholder="Rol Personaje">
+                        <ion-select-option  value="Protagonista">Protagonista</ion-select-option>
+                        <ion-select-option value="Antagonista">Antagonista</ion-select-option>
+                        <ion-select-option value="No se aun">No se aún</ion-select-option>
+                      </ion-select>
                     </ion-item>
                     
                   </ion-list>
@@ -88,26 +106,63 @@
           
             <ion-item *ngFor="let personaje of personajes">
               <ion-label>
-                <ion-label>{{personaje.nombre}}</ion-label>
-                <ion-label>{{personaje.edad}}</ion-label>
-                <ion-label>{{personaje.descripcion}}</ion-label>
+                <ion-label>Nombre: {{personaje.nombre}}</ion-label>
+                <ion-label>Edad personaje: {{personaje.edad}}</ion-label>
+                <ion-label>Tipo funcion personaje: {{personaje.tPersonajeFunc}}</ion-label>
+                <ion-label>Tipo funcion personaje: {{personaje.tPersonajeRol}}</ion-label>
+                <ion-label>Descripcion: {{personaje.descripcion}}</ion-label>
               </ion-label>
 
               <ion-buttons slot="end">
-                <ion-button (click)="newPersonaje = personaje; enableNewPersonaje = true"
-                id="open-modal2">
+                <!-- Editar que no funciona -->
+                <ion-button id="open-modal2" 
+                (click)="newPersonaje = personaje; enableNewPersonaje = true">
                   <ion-icon name="create-outline"></ion-icon>
                 </ion-button>
+                <!-- Compartir -->
+                <ion-button (click)="shareApp()" expand="block" fill="clear" shape="round">
+                  <ion-icon name="share-social-outline"></ion-icon>
+                </ion-button>
+                <!-- Delete -->
                 <ion-button (click)="deletePersonaje(personaje)">
                   <ion-icon name="trash-outline" color="danger"></ion-icon>
                 </ion-button>
               </ion-buttons>
               
             </ion-item>
-          
-          <ion-modal id="open-modal2">
-            <ng-template>
 
+          <ion-modal trigger="open-modal2">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-buttons slot="start">
+                    <ion-button (click)="cancel()">Cancel</ion-button>
+                  </ion-buttons>
+                  <ion-title>Modificar Personaje</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="guardarPersonaje()" [strong]="true">Confirm</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+            </ng-template>
+          </ion-modal>
+          
+            <!-- Ver personaje Random No funciona -->
+          <ion-modal trigger="open-modal3">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-buttons slot="start">
+                    <ion-button (click)="cancel()">Cancel</ion-button>
+                  </ion-buttons>
+                  <ion-title>Personaje Random</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="guardarPersonaje()" [strong]="true">Confirm</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+              </ion-content>
             </ng-template>
           </ion-modal>
        
@@ -121,7 +176,9 @@
             <ion-fab-button id="open-modal" (click)="nuevoPersonaje()">
               <ion-icon name="document"></ion-icon>
             </ion-fab-button>
-
+            <ion-fab-button id="open-modal3">
+              <ion-icon name="shuffle-outline"></ion-icon>
+            </ion-fab-button>
           </ion-fab-list>
         </ion-fab>
       </ion-content>

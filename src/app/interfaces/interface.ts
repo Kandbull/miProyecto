@@ -2,6 +2,8 @@ export interface Personaje{
     id: string | undefined;
     nombre: string | undefined;
     edad: number | undefined;
+    tPersonajeFunc: string | undefined;
+    tPersonajeRol: string | undefined;
     descripcion: string | undefined; 
 }
 
@@ -16,4 +18,13 @@ export interface Usuario {
     id: string | undefined;
     nombre: string | undefined;
     username: string | undefined;
+}
+
+export interface RespuestaRandomPersonaje {
+    randomPersonajes: RandomPersonaje[];
+}
+
+export interface RandomPersonaje {
+    genderRandPer: string;
+    nameRandPers: string;
 }
