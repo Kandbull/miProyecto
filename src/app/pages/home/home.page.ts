@@ -156,6 +156,7 @@ export class HomePage {
 				console.error('Error al obtener personaje',error);
 			}
 		)
+		this.nuevoRandomPersonaje();
 		
 	}
 
@@ -247,7 +248,7 @@ export class HomePage {
 	}
 
 	guardarPersonajeRandom(){
-		
+
 		this.firebase.createPersonaje(this.newRandomPersonaje, this.pathe,
 			this.newRandomPersonaje.id).then(res => {
 
@@ -255,6 +256,7 @@ export class HomePage {
 			}).catch(error => { });
 		this.interactions.presentLoading('Creando Personaje...')
 		return this.modalCtrl.dismiss();
+		
 	}
 
 	nuevoPersonaje() {
@@ -267,6 +269,19 @@ export class HomePage {
 			descripcion: '',
 			tPersonajeFunc: '',
 			tPersonajeRol: ''
+		}
+	}
+
+	nuevoRandomPersonaje() {
+		this.enableNewPersonaje = true;
+		this.newRandomPersonaje = {
+		id: this.firebase.getId(),
+		nombre: this.randomUser.name,
+		edad: undefined,
+		genero: this.randomUser.gender,
+		descripcion: '',
+		tPersonajeFunc: '',
+		tPersonajeRol: ''
 		}
 	}
 
