@@ -4,28 +4,28 @@ import { AlertController } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
 
 @Component({
-  selector: 'app-randomizer',
-  templateUrl: './randomizer.page.html',
-  styleUrls: ['./randomizer.page.scss'],
+	selector: 'app-randomizer',
+	templateUrl: './randomizer.page.html',
+	styleUrls: ['./randomizer.page.scss'],
 })
 export class RandomizerPage implements OnInit {
 
-  constructor(
-    private alertController: AlertController,
-    private firebaseAuthService: FirebaseAuthService,
-    private router: Router
-  ) { }
+	constructor(
+		private alertController: AlertController,
+		private firebaseAuthService: FirebaseAuthService,
+		private router: Router
+	) { }
 
-  ngOnInit() {
-    
-  }
+	ngOnInit() {
 
-  recargarPagina() {
+	}
+
+	recargarPagina() {
 		window.location.reload();
 	}
 
 
-  async cerrarSesion() {
+	async cerrarSesion() {
 		const alert = await this.alertController.create({
 			header: 'Atención',
 			message: '¿Está seguro que desea cerrar sesión?',

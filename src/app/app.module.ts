@@ -12,11 +12,11 @@ import { Firestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
- 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, 
-    AngularFireModule.initializeApp(environment.firebaseConfig), AngularFirestoreModule],
+    AngularFireModule.initializeApp(environment.firebaseConfig), AngularFirestoreModule,HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SQLite],
   bootstrap: [AppComponent],
 })

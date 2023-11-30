@@ -51,6 +51,21 @@ export class HomePage {
 		tPersonajeRol: ''
 	}
 
+	randomUser = {
+		name: '',
+		gender:'',
+		age:''
+	}
+
+	newRandomPersonaje:Personaje = {
+		id: this.firebase.getId(),
+		nombre: this.randomUser.name,
+		edad: undefined,
+		genero: this.randomUser.gender,
+		descripcion: '',
+		tPersonajeFunc: '',
+		tPersonajeRol: ''
+	}
 
 	data: any;
 
@@ -83,7 +98,7 @@ export class HomePage {
 		private modalCtrl: ModalController,
 		public interactions: InteractionsService,
 		public loadingController: LoadingController,
-		//private apirandom: ApiService
+		private apirandom: ApiService
 		//private sharep: SharePlugin
 
 	) {
@@ -124,8 +139,24 @@ export class HomePage {
 
 	}
 
-	randomizerPage(){
-		this.router.navigate(['randomizer']);
+	randomizePersonaje(){
+		this.apirandom.getRandomPersonaje().subscribe(
+			(data)=>{
+
+				this.randomUser.name = data.results[0].name.first;
+				this.randomUser.age = data.results[0].dob.age;
+				if(data.results[0].gender === 'male'){
+					this.randomUser.gender = 'Masculino';
+				}else{
+					this.randomUser.gender = 'Femenino';
+				};
+				console.log(this.randomUser);			
+			},
+			(error)=>{
+				console.error('Error al obtener personaje',error);
+			}
+		)
+		
 	}
 
 	/** Aqui se comparten cosas */
@@ -208,6 +239,17 @@ export class HomePage {
 
 		this.firebase.createPersonaje(this.newPersonaje, this.pathe,
 			this.newPersonaje.id).then(res => {
+
+				this.loading.dismiss()
+			}).catch(error => { });
+		this.interactions.presentLoading('Creando Personaje...')
+		return this.modalCtrl.dismiss();
+	}
+
+	guardarPersonajeRandom(){
+		
+		this.firebase.createPersonaje(this.newRandomPersonaje, this.pathe,
+			this.newRandomPersonaje.id).then(res => {
 
 				this.loading.dismiss()
 			}).catch(error => { });
