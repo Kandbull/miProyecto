@@ -89,11 +89,22 @@ export class FirebaseAuthService {
 	logOut() {
 		return this.authFirebase.signOut()
 	}
-
+	/** 
 	async getUID() {
 		const user = await this.authFirebase.currentUser
 		return user ? user.uid : null
+	}*/
+
+	async getUID (){
+		const user = await this.authFirebase.currentUser;
+		if ( user === null) {
+			return null;
+		} else {
+			return user?.uid;
+		}
+
 	}
+
 	stateUser() {
 		return this.authFirebase.authState
 	}

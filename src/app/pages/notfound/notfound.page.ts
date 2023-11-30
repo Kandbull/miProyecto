@@ -19,6 +19,10 @@ export class NotfoundPage implements OnInit {
   ngOnInit() {
   }
 
+  recargarPagina() {
+	window.location.reload();
+}
+
   async cerrarSesion() {
 		const alert = await this.alertController.create({
 			header: 'Atención',

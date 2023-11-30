@@ -2,6 +2,7 @@ export interface Personaje{
     id: string | undefined;
     nombre: string | undefined;
     edad: number | undefined;
+    genero: string | undefined;
     tPersonajeFunc: string | undefined;
     tPersonajeRol: string | undefined;
     descripcion: string | undefined; 

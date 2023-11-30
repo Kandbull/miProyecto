@@ -23,7 +23,7 @@ export class InteractionsService {
 	}
 
 	//Obtener un elemento desde localstorage
-	getFromLocalStorage(key: string){
+	getFromLocalStorage(key: string) {
 		return JSON.parse(localStorage.getItem(key)!)
 		//return localStorage.getItem(key)
 	}

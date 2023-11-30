@@ -29,12 +29,11 @@ const routes: Routes = [
   },
   
   {
-    path: '**',
-    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule),
+    path: 'randomizer',
+    loadChildren: () => import('./pages/randomizer/randomizer.module').then( m => m.RandomizerPageModule),
     canActivate: [AngularFireAuthGuard],
 		data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  
   {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
@@ -47,19 +46,16 @@ const routes: Routes = [
   },
 
   {
-    path: 'crear',
-    loadChildren: () => import('./pages/crear/crear.module').then( m => m.CrearPageModule),
-    canActivate: [AngularFireAuthGuard],
-		data: { authGuardPipe: redirectUnauthorizedToLogin }
-  },
-  {
     path: 'share',
     loadChildren: () => import('./pages/share/share.module').then( m => m.SharePageModule)
   },
   {
-    path: 'randomizer',
-    loadChildren: () => import('./pages/randomizer/randomizer.module').then( m => m.RandomizerPageModule)
+    path: '**',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule),
+    canActivate: [AngularFireAuthGuard],
+		data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
+
 
 ];
 

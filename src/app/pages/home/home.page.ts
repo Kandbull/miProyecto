@@ -12,6 +12,7 @@ import { Share } from '@capacitor/share';
 import { ApiService } from 'src/app/services/api/api.service';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
+
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
@@ -24,7 +25,7 @@ export class HomePage {
 	@Input() loaded!: boolean
 
 	user(): Usuario {
-		return this.interactions.getFromLocalStorage('user');
+		return this.interactions.getFromLocalStorage('user_uid');
 	}
 
 	personajes: Personaje[] = []
@@ -33,11 +34,22 @@ export class HomePage {
 		id: this.firebase.getId(),
 		nombre: '',
 		edad: undefined,
+		genero: '',
 		descripcion: '',
 		tPersonajeFunc: '',
 		tPersonajeRol: ''
 	}
 	enableNewPersonaje = false;
+
+	updatePersonaje: Personaje = {
+		id: '',
+		nombre: '',
+		edad: undefined,
+		genero: '',
+		descripcion: '',
+		tPersonajeFunc: '',
+		tPersonajeRol: ''
+	}
 
 
 	data: any;
@@ -47,17 +59,19 @@ export class HomePage {
 	private pathi = '/usuarios';
 
 
-	private pathp = 'personaje/';
+	//private pathe = 'personaje/';
+
+	private pathe = `usuario/${this.user()}/personajes`;
 
 	public sendEmail(e: Event) {
 		e.preventDefault();
 		emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target as HTMLFormElement, 'YOUR_PUBLIC_KEY')
-		  .then((result: EmailJSResponseStatus) => {
-			console.log(result.text);
-		  }, (error) => {
-			console.log(error.text);
-		  });
-	  }
+			.then((result: EmailJSResponseStatus) => {
+				console.log(result.text);
+			}, (error) => {
+				console.log(error.text);
+			});
+	}
 
 
 	constructor(
@@ -103,29 +117,36 @@ export class HomePage {
 	ngOnInit() {
 
 		this.leerPersonajes();
-		this.getPersonajes();
 		
+		//this.getPersonajes();
+		this.firebaseAuthService.getUID();
+		console.log('Aqui debe ir el getUid:', this.firebaseAuthService.getUID());
+
+	}
+
+	randomizerPage(){
+		this.router.navigate(['randomizer']);
 	}
 
 	/** Aqui se comparten cosas */
-	shareApp() {
+	shareApp(personaje: Personaje) {
 		Share.share({
-			title: 'See cool stuff',
-			text: this.leerPersonajes()!,
-			url: 'http://ionicframework.com/',
-			dialogTitle: 'Share with buddies',
-		});
+			title: 'Este es mi Personaje',
+			text: `Nomnbre: ${personaje?.nombre}\n Edad: ${personaje?.edad}\n 
+			Genero: ${personaje?.genero}\n Funcion Personaje: ${personaje?.tPersonajeFunc}\n
+			Rol Personaje: ${personaje?.tPersonajeRol}\n Descripcion: ${personaje?.descripcion}`
+		})
 	}
 
-	sharePagAyuda(){
+	sharePagAyuda() {
 		url: 'https://www.coollibri.es/blog/como-crear-un-personaje-ficticio-o-de-novela-en-5-pasos/'
 	}
 
-	enviarEmail(){
+	enviarEmail() {
 		//email
 	}
 
-	
+
 
 	/** Usuarios 
 	 */
@@ -163,7 +184,9 @@ export class HomePage {
 					text: 'Si',
 					handler: async () => {
 						this.firebaseAuthService.logOut()
+						localStorage.removeItem('user_uid')
 						this.router.navigate([''])
+						window.location.reload();
 					},
 				},
 			],
@@ -183,8 +206,7 @@ export class HomePage {
 
 	guardarPersonaje() {
 
-
-		this.firebase.createPersonaje(this.newPersonaje, this.pathp,
+		this.firebase.createPersonaje(this.newPersonaje, this.pathe,
 			this.newPersonaje.id).then(res => {
 
 				this.loading.dismiss()
@@ -199,6 +221,7 @@ export class HomePage {
 			id: this.firebase.getId(),
 			nombre: '',
 			edad: undefined,
+			genero: '',
 			descripcion: '',
 			tPersonajeFunc: '',
 			tPersonajeRol: ''
@@ -206,36 +229,27 @@ export class HomePage {
 	}
 
 	leerPersonajes() {
-		this.firebase.getListPersonaje<Personaje>(this.pathp).subscribe(res => {
+		this.firebase.getListPersonaje<Personaje>(this.pathe).subscribe(res => {
 			this.personajes = res;
 		})
 	}
 
+	editarPersonaje(){
+		let updatePersonaje = {
+
+		}
+		//this.firebase.updatePersonaje(this.updatePersonaje, this.pathe)
+	}
+
+	openEditar(personaje: Personaje){
+		this.enableNewPersonaje = true;
+		console.log('Aqui d')
+	}
+
 	deletePersonaje(personaje: Personaje) {
-		this.firebase.deleteDocPersonaje(this.pathp, personaje.id!);
+		this.firebase.deleteDocPersonaje(this.pathe, personaje.id!);
 
 	}
-
-	getPersonajes() {
-		let path = `usuario/${this.user().id}/personajes`
-
-		this.loading = true;
-
-		let query = [
-			orderBy('nombre', 'desc',)
-		]
-
-		let sub = this.firebase.getCollectionData(path, query).subscribe({
-			next: (res: any) => {
-				console.log(res);
-				this.personajes = res;
-
-				this.loading = false;
-				sub.unsubscribe();
-			}
-		})
-	}
-
 
 
 	async presentLoading() {

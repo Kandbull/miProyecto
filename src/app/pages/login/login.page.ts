@@ -121,10 +121,12 @@ export class LoginPage implements OnInit {
 			this.interactions.closeLoading()
 			this.interactions.presentToast('Ingresado con exito '+ this.usuario.username)
       //this.firebase.crearUsuario(this.newUsuario, this.pathi, this.newUsuario.id)
-      const resp = await this.firebaseAuthService
+      const respuesta = await this.firebaseAuthService
 			.logIn(this.usuario.username, this.passwordLogin)
       .then(repuesta => {
         this.getUserInfo(repuesta.user!.uid)
+        console.log(repuesta.user!.uid)
+        this.interactions.saveInLocalStorage('user_uid', repuesta.user!.uid)
       })
       
       this.firebase.getUsuario(this.pathi, this.usuario.username)
