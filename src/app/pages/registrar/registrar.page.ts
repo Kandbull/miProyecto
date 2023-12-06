@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ToastOptions } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/offline/dbservice/dbservice.service';
 import { Usuario } from 'src/app/interfaces/interface'; 
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
@@ -31,7 +30,7 @@ export class RegistrarPage implements OnInit {
 
   loading: any;
 
-  constructor(private dbservice: DbserviceService, 
+  constructor(
       private router: Router,
       public firebase: FirebaseService,
       public loadingController: LoadingController,
@@ -80,21 +79,6 @@ export class RegistrarPage implements OnInit {
   /** 
    * Cosas que funcionan
    */
-
-  comprobarRegistro(){
-    if(this.newUsuario.username == "" ){
-      this.dbservice.presentToast("Falta correo");
-      return;
-    }if(this.newUsuario.nombre == ""){
-      this.dbservice.presentToast("Falta crear usuario");
-      return;
-    }else{
-      //this.dbservice.addUsuario(this.correoRegistro, this.usuarioRegistro, this.passwordRegistro);
-      this.guardarUsuario();
-      this.dbservice.presentToast("Usuario Registrado");
-      this.router.navigate(['/login']);
-    }
-  }
 
   guardarUsuario(){
     this.firebase.crearUsuario(this.newUsuario, this.path, this.newUsuario.id).then( res => {
