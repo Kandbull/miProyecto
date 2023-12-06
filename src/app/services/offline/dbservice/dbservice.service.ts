@@ -37,22 +37,22 @@ export class DbserviceService {
       this.dataBase = db;
       this.presentToast("Base de Datos creada");
     //se llama a crear la(s) tabla(s)
-      this.crearTablas();
+      // this.crearTablas();
     }).catch(e => this.presentToast(e));
     })
   }
 
-  async crearTablas(){
-    try{
-      await this.dataBase.executeSql(this.tablaUsuario, []);
-      this.presentToast("Tabla creada");
-      //this.cargarUsuario();
-      this.isDbReady.next(true);
-    } catch (error) {
-      this.presentToast("Error en Crear Tabla: " + error);
-    }
+  // async crearTablas(){
+  //   try{
+  //     await this.dataBase.executeSql(this.tablaUsuario, []);
+  //     this.presentToast("Tabla creada");
+  //     //this.cargarUsuario();
+  //     this.isDbReady.next(true);
+  //   } catch (error) {
+  //     this.presentToast("Error en Crear Tabla: " + error);
+  //   }
     
-  }
+  // }
 
   cargarUsuario() {
     let items: Usuario[] = [];
