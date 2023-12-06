@@ -17,7 +17,7 @@ export class PerfilPage implements OnInit {
 
 	@Input() usuario!: Usuario
 	@Input() loaded!: boolean
-	
+
 
 	constructor(
 		private router: Router,
@@ -48,8 +48,8 @@ export class PerfilPage implements OnInit {
 		const id = uid;
 		this.firebase.getDocument<Usuario>(path, id).subscribe((respuesta) => {
 			if (respuesta) {
-				this.usuario =  respuesta
-                
+				this.usuario = respuesta
+
 			}
 			this.loaded = true
 			console.log('datos usuario -> ', respuesta)

@@ -19,6 +19,28 @@ a{
     color: #ffffff;
 }
 
+// titulo e icono de presentación
+.upper{
+    width: 100%;
+    height: 200px;
+    padding-top: 50px;
+
+    .logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ion-icon{
+            font-size: 100px;
+            color: #ffffff;
+        }
+    }
+    .titulo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 
 
 // intento de loading

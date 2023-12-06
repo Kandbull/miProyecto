@@ -227,6 +227,29 @@ export class HomePage {
 		await alert.present()
 	}
 
+	// Intento de alert de borrar Personaje
+	// Funcional :3
+	async borrarPersonaje(personaje: Personaje){
+		const alert = await this.alertController.create({
+			header: 'Atención',
+			message: 'Estas seguro de borrar este personaje',
+			buttons: [
+				{
+					text: 'No',
+					role: 'cancel',
+					handler: (blah) => { },
+				},
+				{
+					text: 'Si',
+					handler: async () => {
+						this.deletePersonaje(personaje)
+					},
+				},
+			],
+		})
+		await alert.present()
+	}
+
 
 	/** Personajes y creacion de los mismos */
 

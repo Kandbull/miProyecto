@@ -1,42 +1,48 @@
 <ion-content>
-  
-    <ion-card>
-      
+
+  <div class="upper">
+    <div class="logo">
+      <ion-icon name="book-outline"></ion-icon>
+      <ion-img src="../../../assets/img/logo.png"></ion-img>
+    </div>
+    <h1 class="titulo">UniverseApp</h1>
     
-      
+  </div>
+  
 
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input type="email" [(ngModel)]="usuario.username"></ion-input>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input type="email" [(ngModel)]="usuario.username"></ion-input>
 
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" [(ngModel)]="passwordLogin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="passwordLogin"></ion-input>
 
-        </ion-item>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" (click)="ingresar()">
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" (click)="ingresar()">
 
-              Ingresar</ion-button>
+            Ingresar</ion-button>
 
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <a [routerLink]="['/restablecer']">Haz olvidado tu contraseña?¿</a>
-          </ion-col>
-          <!-- <ion-button expand="block" [routerLink]="['/registrar']">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <a [routerLink]="['/restablecer']">Haz olvidado tu contraseña?¿</a>
+        </ion-col>
+        <!-- <ion-button expand="block" [routerLink]="['/registrar']">
 
             Registrar</ion-button> -->
-        </ion-row>
-        
+      </ion-row>
 
-      </ion-card-content>
-      
 
-    </ion-card>
+    </ion-card-content>
+
+
+  </ion-card>
 
 </ion-content>
