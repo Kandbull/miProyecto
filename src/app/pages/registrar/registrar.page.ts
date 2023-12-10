@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ToastOptions } from '@ionic/angular';
-import { Usuario } from 'src/app/interfaces/interface'; 
+import { LoadingController } from '@ionic/angular';
+import { Usuario } from 'src/app/interfaces/interface';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { FirebaseAuthService } from 'src/app/services/firebaseAuth/firebase-auth.service';
+import { InteractionsService } from 'src/app/services/interactions/interactions.service';
 
 
 
@@ -31,46 +32,45 @@ export class RegistrarPage implements OnInit {
   loading: any;
 
   constructor(
-      private router: Router,
-      public firebase: FirebaseService,
-      public loadingController: LoadingController,
-      private authService: FirebaseAuthService
-      ) 
-      { }
-  
+    private router: Router,
+    public firebase: FirebaseService,
+    public loadingController: LoadingController,
+    private authService: FirebaseAuthService,
+    private interactions: InteractionsService
+  ) { }
+  ngOnInit() { }
 
-  /***guardarUsuario(){
-    this.dbservice.addUsuario(this.correoRegistro, this.usuarioRegistro, this.passwordRegistro);
-    this.dbservice.presentToast("Usuario Registrado");
-    this.router.navigate(['/login']);
-  }*/
-  /** 
-  async setUserInfo(uid: string){
-    if(this.form.valid){
 
-    }
-  }*/
+  registro() {
 
-  registro(email: string, password: string){
-    this.authService.crearUsuario(this.correoRegistro,this.passwordRegistro)
-    .then((usuarioCredencial) => {
-      const userId = usuarioCredencial.user?.uid;
-      const userData = {
-        nombre: this.usuarioRegistro,
-        username: email,
-        listaPersonaje: []
-      };
-      this.authService.guardarDatosUsuario(userId!, userData)
-      .then(() => {
-        console.log('Usuario registrado y datos guardados en Firestore');
+    const respuesta = this.authService.crearUsuario(this.correoRegistro, this.passwordRegistro)
+      .then((usuarioCredencial) => {
+        const userId = usuarioCredencial.user?.uid;
+        const userData = {
+          nombre: this.usuarioRegistro,
+          username: this.correoRegistro
+        };
+        this.authService.guardarDatosUsuario(userId!, userData)
+          .then(() => {
+            console.log('Usuario registrado y datos guardados en Firestore');
+            this.interactions.closeLoading()
+            this.interactions.presentToast('Registrado con exito')
+          })
+          .catch((error) => {
+            console.error('Error al guardar datos en Firestore:', error);
+          });
       })
       .catch((error) => {
-        console.error('Error al guardar datos en Firestore:', error);
-      });
-    })
-    .catch((error) => {
-      console.error('Error al registrar usuario:', error );
-    });
+        console.error('Error al registrar usuario:', error);
+      })
+      if (respuesta){
+        console.log('Respuesta -> ', respuesta)
+        this.interactions.closeLoading()
+        this.interactions.presentToast('Registrado con exito')
+      }
+
+      // Pongo que tire al login, pero esto pezca como si ya estuviera logueado
+      this.router.navigate(['/login'])
   }
 
 
@@ -80,26 +80,22 @@ export class RegistrarPage implements OnInit {
    * Cosas que funcionan
    */
 
-  guardarUsuario(){
-    this.firebase.crearUsuario(this.newUsuario, this.path, this.newUsuario.id).then( res => {
+  guardarUsuario() {
+    this.firebase.crearUsuario(this.newUsuario, this.path, this.newUsuario.id).then(res => {
       this.loading.dismiss()
-    }).catch( error => {});
+    }).catch(error => { });
   }
 
 
   //this.correoRegistro == ""  || this.usuarioRegistro == "" || this.passwordRegistro == null)
-  
-  async presentLoading() {
-		this.loading = await this.loadingController.create({
-		  cssClass: 'my-custom-class',
-		  message: 'Guardando...'
-		});
-		await this.loading.present();
-	  //await loading.onDidDismiss();
-		//console.log('Loading dismissed!');
-	  }
 
-  ngOnInit(){
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Guardando...'
+    });
+    await this.loading.present();
   }
+
 
 }
